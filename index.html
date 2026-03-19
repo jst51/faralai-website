@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faralai</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #050505;
+    --white: #f5f2ec;
+    --accent: #c8f542;
+    --border: rgba(255,255,255,0.08);
+  }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .noise {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+  .glow {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,245,66,0.07) 0%, transparent 70%);
+    top: -200px;
+    right: -100px;
+    pointer-events: none;
+    z-index: 0;
+    animation: glowPulse 6s ease-in-out infinite;
+  }
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  nav { padding: 36px 0 0; }
+  .logo {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--white);
+  }
+  .logo span { color: var(--accent); }
+  .hero { padding: 120px 0 80px; }
+  .hero-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: rgba(200,245,66,0.7);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-label::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: rgba(200,245,66,0.4);
+  }
+  h1 {
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -3px;
+    margin-bottom: 40px;
+    color: var(--white);
+  }
+  h1 .line2 {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(245,242,236,0.3);
+  }
+  h1 .highlight {
+    color: var(--accent);
+    -webkit-text-stroke: 0;
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(245,242,236,0.45);
+    max-width: 420px;
+    line-height: 1.7;
+    font-weight: 400;
+    margin-bottom: 72px;
+  }
+  .divider {
+    border: none;
+    border-top: 0.5px solid rgba(255,255,255,0.08);
+    margin: 0 0 64px;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 0.5px solid rgba(255,255,255,0.08);
+    max-width: 600px;
+  }
+  .contact-item {
+    padding: 36px 32px;
+    border-right: 0.5px solid rgba(255,255,255,0.08);
+    transition: background 0.3s ease;
+  }
+  .contact-item:last-child { border-right: none; }
+  .contact-item:hover { background: rgba(200,245,66,0.03); }
+  .contact-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(245,242,236,0.3);
+    margin-bottom: 12px;
+  }
+  .contact-value {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    word-break: break-all;
+  }
+  .contact-value a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 0.5px solid rgba(200,245,66,0.3);
+    padding-bottom: 1px;
+    transition: border-color 0.2s;
+  }
+  .contact-value a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  footer {
+    padding: 48px 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-copy {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: rgba(245,242,236,0.2);
+    letter-spacing: 0.05em;
+  }
+  .footer-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: blink 2s ease-in-out infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+  .hero-line { animation: fadeUp 0.8s ease both; }
+  .hero-line:nth-child(1) { animation-delay: 0.1s; }
+  .hero-line:nth-child(2) { animation-delay: 0.2s; }
+  .hero-line:nth-child(3) { animation-delay: 0.3s; }
+  .contact-item { animation: fadeUp 0.8s ease both; }
+  .contact-item:nth-child(1) { animation-delay: 0.4s; }
+  .contact-item:nth-child(2) { animation-delay: 0.5s; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (max-width: 700px) {
+    .contact-grid { grid-template-columns: 1fr; max-width: 100%; }
+    .contact-item { border-right: none; border-bottom: 0.5px solid rgba(255,255,255,0.08); }
+    .contact-item:last-child { border-bottom: none; }
+    h1 { letter-spacing: -2px; }
+  }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<div class="glow"></div>
+<div class="container">
+  <nav>
+    <div class="logo">fara<span>l</span>ai</div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-label hero-line">Converging intelligence</div>
+    <h1>
+      <div class="hero-line">The future</div>
+      <div class="hero-line line2">is being</div>
+      <div class="hero-line"><span class="highlight">built.</span></div>
+    </h1>
+    <p class="hero-sub">A new kind of solutions — fusing AI, data, business intelligence and strategy into something the world hasn't seen yet.</p>
+  </section>
+
+  <hr class="divider">
+
+  <div class="contact-grid">
+    <div class="contact-item">
+      <div class="contact-label">Email</div>
+      <div class="contact-value"><a href="mailto:info@faralai.com">info@faralai.com</a></div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-label">Status</div>
+      <div class="contact-value" style="color: #c8f542;">In development</div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-copy">© 2026 Faralai. All rights reserved.</div>
+    <div class="footer-dot"></div>
+  </footer>
+</div>
+</body>
+</html>
