@@ -176,6 +176,10 @@ document.addEventListener('DOMContentLoaded', () => {
   loadNews();
 
   /* ── CONTACT FORM ── */
+  const form = document.getElementById('contact-form');
+  if (form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
       const btn = form.querySelector('button[type="submit"]');
       const orig = btn.innerHTML;
       btn.innerHTML = 'Sending...';
