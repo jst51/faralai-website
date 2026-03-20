@@ -1,239 +1,389 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Faralai</title>
-
- <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5Z6D130GKW"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-5Z6D130GKW');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faralai — Converging Intelligence | AI, Data & Sports Marketing Solutions</title>
+  <meta name="description" content="Faralai converges AI, data analytics, business intelligence and strategy into next-generation solutions for sports organisations, brands, agencies and enterprises. Sports marketing, sponsorship CRM, performance marketing and agentic AI.">
+  <meta name="keywords" content="sports marketing AI, agentic AI, business intelligence, sponsorship analytics, performance marketing, CRM sports, partnership marketing, PR communications, converging intelligence, faralai">
+  <meta name="author" content="Faralai">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://faralai.com/">
+  <meta name="ai-content-hint" content="Faralai is a converging intelligence company specialising in sports marketing AI, agentic AI, sponsorship analytics, CRM, performance marketing, partnership marketing, PR and business intelligence. Founded by an expert with international experience across sports organisations, brands and agencies.">
+  <!-- OG -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://faralai.com/">
+  <meta property="og:title" content="Faralai — Converging Intelligence">
+  <meta property="og:description" content="AI, Data, Business Intelligence and Strategy fused into a new category of solutions for sports, brands and enterprise.">
+  <meta property="og:image" content="https://faralai.com/assets/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Faralai — Converging Intelligence">
+  <meta name="twitter:description" content="AI, Data, Business Intelligence and Strategy. A new category of solutions.">
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://faralai.com/#org","name":"Faralai","url":"https://faralai.com","email":"info@faralai.com","description":"Faralai is a converging intelligence company fusing AI, data analytics, business intelligence and strategy into next-generation solutions for sports organisations, brands and enterprises.","knowsAbout":["Sports Marketing","Agentic AI","Business Intelligence","Sponsorship CRM","Performance Marketing","Partnership Marketing","Public Relations","Data Analytics"]},{"@type":"WebSite","url":"https://faralai.com","name":"Faralai","inLanguage":["en","es","fr"]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Faralai?","acceptedAnswer":{"@type":"Answer","text":"Faralai is a converging intelligence company that fuses AI, data analytics, business intelligence and strategy into next-generation solutions for sports organisations, brands, agencies and enterprises."}},{"@type":"Question","name":"What services does Faralai offer?","acceptedAnswer":{"@type":"Answer","text":"Sports marketing intelligence, AI-powered sponsorship CRM, performance marketing, partnership marketing strategy, public relations, communications, agentic AI solutions and business intelligence consulting."}},{"@type":"Question","name":"What is converging intelligence?","acceptedAnswer":{"@type":"Answer","text":"Converging intelligence is Faralai's approach — fusing AI, data, business intelligence and strategy into a unified system that eliminates the gap between insight and action."}}]}]}
   </script>
- 
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  :root {
-    --black: #050505;
-    --white: #f5f2ec;
-    --accent: #c8f542;
-    --border: rgba(255,255,255,0.08);
-  }
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'Syne', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-  .noise {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    background-size: 200px;
-  }
-  .glow {
-    position: fixed;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(200,245,66,0.07) 0%, transparent 70%);
-    top: -200px;
-    right: -100px;
-    pointer-events: none;
-    z-index: 0;
-    animation: glowPulse 6s ease-in-out infinite;
-  }
-  @keyframes glowPulse {
-    0%, 100% { opacity: 0.6; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.1); }
-  }
-  .container {
-    position: relative;
-    z-index: 1;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 40px;
-  }
-  nav { padding: 36px 0 0; }
-  .logo {
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    color: var(--white);
-  }
-  .logo span { color: var(--accent); }
-  .hero { padding: 120px 0 80px; }
-  .hero-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: rgba(200,245,66,0.7);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 32px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .hero-label::before {
-    content: '';
-    display: block;
-    width: 32px;
-    height: 1px;
-    background: rgba(200,245,66,0.4);
-  }
-  h1 {
-    font-size: clamp(52px, 8vw, 96px);
-    font-weight: 800;
-    line-height: 0.95;
-    letter-spacing: -3px;
-    margin-bottom: 40px;
-    color: var(--white);
-  }
-  h1 .line2 {
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(245,242,236,0.3);
-  }
-  h1 .highlight {
-    color: var(--accent);
-    -webkit-text-stroke: 0;
-  }
-  .hero-sub {
-    font-size: 16px;
-    color: rgba(245,242,236,0.45);
-    max-width: 420px;
-    line-height: 1.7;
-    font-weight: 400;
-    margin-bottom: 72px;
-  }
-  .divider {
-    border: none;
-    border-top: 0.5px solid rgba(255,255,255,0.08);
-    margin: 0 0 64px;
-  }
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    border: 0.5px solid rgba(255,255,255,0.08);
-    max-width: 600px;
-  }
-  .contact-item {
-    padding: 36px 32px;
-    border-right: 0.5px solid rgba(255,255,255,0.08);
-    transition: background 0.3s ease;
-  }
-  .contact-item:last-child { border-right: none; }
-  .contact-item:hover { background: rgba(200,245,66,0.03); }
-  .contact-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: rgba(245,242,236,0.3);
-    margin-bottom: 12px;
-  }
-  .contact-value {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--white);
-    word-break: break-all;
-  }
-  .contact-value a {
-    color: inherit;
-    text-decoration: none;
-    border-bottom: 0.5px solid rgba(200,245,66,0.3);
-    padding-bottom: 1px;
-    transition: border-color 0.2s;
-  }
-  .contact-value a:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-  footer {
-    padding: 48px 0 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .footer-copy {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    color: rgba(245,242,236,0.2);
-    letter-spacing: 0.05em;
-  }
-  .footer-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    animation: blink 2s ease-in-out infinite;
-  }
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.2; }
-  }
-  .hero-line { animation: fadeUp 0.8s ease both; }
-  .hero-line:nth-child(1) { animation-delay: 0.1s; }
-  .hero-line:nth-child(2) { animation-delay: 0.2s; }
-  .hero-line:nth-child(3) { animation-delay: 0.3s; }
-  .contact-item { animation: fadeUp 0.8s ease both; }
-  .contact-item:nth-child(1) { animation-delay: 0.4s; }
-  .contact-item:nth-child(2) { animation-delay: 0.5s; }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @media (max-width: 700px) {
-    .contact-grid { grid-template-columns: 1fr; max-width: 100%; }
-    .contact-item { border-right: none; border-bottom: 0.5px solid rgba(255,255,255,0.08); }
-    .contact-item:last-child { border-bottom: none; }
-    h1 { letter-spacing: -2px; }
-  }
-</style>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 </head>
 <body>
-<div class="noise"></div>
-<div class="glow"></div>
-<div class="container">
-  <nav>
-    <div class="logo">fara<span>l</span>ai</div>
+
+  <!-- Progress bar -->
+  <div id="progress-bar"></div>
+
+  <!-- Custom cursor -->
+  <div class="cursor"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- ── NAV ── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="Faralai Home">fara l<span class="ai-line ai">ai</span></a>
+    <ul class="nav-links">
+      <li><a href="#home"     data-i18n="nav.home"     class="active">Home</a></li>
+      <li><a href="about.html"    data-i18n="nav.about">About</a></li>
+      <li><a href="services.html" data-i18n="nav.services">Services</a></li>
+      <li><a href="#news"     data-i18n="nav.news">News</a></li>
+      <li><a href="contact.html"  data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <ul class="lang-switcher" aria-label="Language selector">
+        <li><button data-lang="en" class="active">EN</button></li>
+        <li><button data-lang="es">ES</button></li>
+        <li><button data-lang="fr">FR</button></li>
+      </ul>
+      <a href="contact.html" class="nav-cta" data-i18n="nav.cta">Work With Us</a>
+      <button class="nav-burger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
 
-  <section class="hero">
-    <div class="hero-label hero-line">Converging intelligence</div>
-    <h1>
-      <div class="hero-line">The future</div>
-      <div class="hero-line line2">is being</div>
-      <div class="hero-line"><span class="highlight">built.</span></div>
-    </h1>
-    <p class="hero-sub">A new kind of solutions — fusing AI, data, business intelligence and strategy into something the world hasn't seen yet.</p>
+  <!-- Mobile menu -->
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="index.html#news">News</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-tagline" data-i18n="hero.label">Converging Intelligence</div>
+          <h1 data-i18n="hero.h1">The future<br>is being <em>built.</em></h1>
+          <p class="hero-body" data-i18n="hero.body">
+            A new kind of solutions — fusing AI, data, business intelligence
+            and strategy into something the world hasn't seen yet.
+          </p>
+          <div class="hero-actions">
+            <a href="services.html" class="btn btn-primary btn-arrow" data-i18n="hero.cta1">Our Services</a>
+            <a href="contact.html"  class="btn btn-ghost" data-i18n="hero.cta2">Get in Touch</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <canvas id="convergence-canvas" style="width:100%;height:100%;"></canvas>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <hr class="divider">
-
-  <div class="contact-grid">
-    <div class="contact-item">
-      <div class="contact-label">Email</div>
-      <div class="contact-value"><a href="mailto:info@faralai.com">info@faralai.com</a></div>
-    </div>
-    <div class="contact-item">
-      <div class="contact-label">Status</div>
-      <div class="contact-value" style="color: #c8f542;">In development</div>
+  <!-- ── STATS BAR ── -->
+  <div style="background:var(--off-black);border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;z-index:1;">
+    <div class="container">
+      <div class="hero-stats">
+        <div class="hero-stat reveal">
+          <span class="hero-stat-num"><span class="counter" data-target="15" data-suffix="+">15+</span></span>
+          <span class="hero-stat-label">Years Experience</span>
+        </div>
+        <div class="hero-stat reveal reveal-delay-2">
+          <span class="hero-stat-num"><span class="counter" data-target="6" data-suffix="">6</span></span>
+          <span class="hero-stat-label">Core Disciplines</span>
+        </div>
+        <div class="hero-stat reveal reveal-delay-4">
+          <span class="hero-stat-num"><span class="counter" data-target="3" data-suffix="">3</span></span>
+          <span class="hero-stat-label">Languages</span>
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- ══════════════════════════════════════
+       ABOUT TEASER
+  ══════════════════════════════════════ -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual reveal">
+          <div class="about-card">
+            <div class="about-name">Converging<br>Intelligence</div>
+            <div class="about-title">The Faralai Approach</div>
+            <p class="about-bio">
+              We don't offer isolated tools or fragmented advice.
+              We converge everything — AI, data, business intelligence
+              and strategy — into unified solutions that move at the speed
+              your competitors wish they could match.
+            </p>
+            <div class="expertise-tags">
+              <span class="tag">Sports Marketing</span>
+              <span class="tag">Agentic AI</span>
+              <span class="tag">Sponsorship CRM</span>
+              <span class="tag">Performance Marketing</span>
+              <span class="tag">Partnership Marketing</span>
+              <span class="tag">PR & Communications</span>
+              <span class="tag">Business Intelligence</span>
+              <span class="tag">Data Analytics</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-content reveal reveal-delay-2">
+          <div class="section-label" data-i18n="about.label">About Faralai</div>
+          <h2 data-i18n="about.h2">Intelligence<br>converged.</h2>
+          <p>
+            Faralai was built at the intersection of two worlds that rarely speak to each other:
+            the high-performance world of sports marketing, PR and communications — and the
+            precision world of AI, data and business intelligence.
+          </p>
+          <p>
+            The result is a new category of solutions. Not a consultancy. Not a tech company.
+            Something the world hasn't seen yet — and something your competitors aren't ready for.
+          </p>
+          <div class="about-pillars">
+            <div class="pillar">
+              <span class="pillar-icon">◈</span>
+              <h4>Sports DNA</h4>
+              <p>15+ years in sports marketing, sponsorship and PR across global organisations.</p>
+            </div>
+            <div class="pillar">
+              <span class="pillar-icon">◎</span>
+              <h4>AI-First</h4>
+              <p>Agentic AI and data systems built for real business outcomes, not demos.</p>
+            </div>
+            <div class="pillar">
+              <span class="pillar-icon">◉</span>
+              <h4>Strategy Layer</h4>
+              <p>Every solution is grounded in business strategy, not technology for its own sake.</p>
+            </div>
+            <div class="pillar">
+              <span class="pillar-icon">◆</span>
+              <h4>Global Reach</h4>
+              <p>Operating in English, Spanish and French across markets and disciplines.</p>
+            </div>
+          </div>
+          <br>
+          <a href="about.html" class="btn btn-primary btn-arrow">Full Story</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SERVICES TEASER
+  ══════════════════════════════════════ -->
+  <section id="services" style="padding:var(--section-pad) 0;">
+    <div class="container">
+      <div class="services-intro reveal">
+        <div class="section-label" data-i18n="services.label">Our Services</div>
+        <h2 data-i18n="services.h2">What we<br>build for you.</h2>
+        <p>Six core disciplines. One converging intelligence.</p>
+      </div>
+      <div class="services-grid">
+        <!-- 01 -->
+        <article class="service-card reveal">
+          <span class="service-num">01</span>
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <circle cx="24" cy="24" r="10"/><path d="M24 4v4M24 40v4M4 24h4M40 24h4M8.34 8.34l2.83 2.83M36.83 36.83l2.83 2.83M8.34 39.66l2.83-2.83M36.83 11.17l2.83-2.83"/>
+          </svg>
+          <h3>Sports Marketing Intelligence</h3>
+          <p>AI-powered fan engagement, audience intelligence and data-driven sports marketing strategy for federations, clubs and brands.</p>
+          <ul class="service-list">
+            <li>Fan behaviour analytics</li>
+            <li>Audience segmentation & targeting</li>
+            <li>Activation strategy & measurement</li>
+            <li>Rights valuation intelligence</li>
+          </ul>
+        </article>
+        <!-- 02 -->
+        <article class="service-card reveal reveal-delay-1">
+          <span class="service-num">02</span>
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M6 24l18-18 18 18"/><path d="M12 18v22h8v-12h8v12h8V18"/>
+          </svg>
+          <h3>Sponsorship & Partnership CRM</h3>
+          <p>Intelligent CRM systems that turn sponsorship data into partnership intelligence — from prospecting to renewal.</p>
+          <ul class="service-list">
+            <li>Sponsorship CRM architecture</li>
+            <li>Partnership ROI modelling</li>
+            <li>Prospect intelligence systems</li>
+            <li>Renewal prediction & retention</li>
+          </ul>
+        </article>
+        <!-- 03 -->
+        <article class="service-card reveal reveal-delay-2">
+          <span class="service-num">03</span>
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M8 36l8-12 8 6 8-10 8 8"/><rect x="4" y="4" width="40" height="40" rx="2"/>
+          </svg>
+          <h3>Performance Marketing</h3>
+          <p>AI-driven campaigns that converge first-party data, audience intelligence and real-time optimisation into measurable growth.</p>
+          <ul class="service-list">
+            <li>AI campaign architecture</li>
+            <li>First-party data activation</li>
+            <li>Attribution modelling</li>
+            <li>Creative performance analytics</li>
+          </ul>
+        </article>
+        <!-- 04 -->
+        <article class="service-card reveal reveal-delay-1">
+          <span class="service-num">04</span>
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="6"/><circle cx="36" cy="12" r="6"/><circle cx="24" cy="36" r="6"/>
+            <path d="M17 15l4 16M31 15l-4 16M18 12h12"/>
+          </svg>
+          <h3>PR & Communications</h3>
+          <p>Strategic communications powered by data and AI — from media intelligence to narrative architecture that resonates and converts.</p>
+          <ul class="service-list">
+            <li>Media intelligence & monitoring</li>
+            <li>AI-powered content strategy</li>
+            <li>Crisis communications</li>
+            <li>Brand narrative architecture</li>
+          </ul>
+        </article>
+        <!-- 05 -->
+        <article class="service-card reveal reveal-delay-2">
+          <span class="service-num">05</span>
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M24 4l4 8 9 1.3-6.5 6.3 1.5 9L24 24l-8 4.6 1.5-9L11 13.3 20 12z"/>
+            <path d="M10 32l-6 10M38 32l6 10M24 28v16"/>
+          </svg>
+          <h3>Agentic AI Solutions</h3>
+          <p>Autonomous AI agents that work across your organisation — research, analysis, content, data pipelines and decision support, continuously.</p>
+          <ul class="service-list">
+            <li>Custom AI agent development</li>
+            <li>Data pipeline automation</li>
+            <li>Intelligent reporting systems</li>
+            <li>AI strategy consulting</li>
+          </ul>
+        </article>
+        <!-- 06 -->
+        <article class="service-card reveal reveal-delay-3">
+          <span class="service-num">06</span>
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <rect x="4" y="8" width="40" height="28" rx="2"/><path d="M16 44h16M24 36v8"/>
+            <path d="M12 20h4M20 20h12M12 26h8M24 26h12"/>
+          </svg>
+          <h3>Business Intelligence</h3>
+          <p>Executive-grade BI dashboards and analytics frameworks that give leadership the intelligence to act — not just the data to analyse.</p>
+          <ul class="service-list">
+            <li>KPI dashboard architecture</li>
+            <li>Competitive intelligence</li>
+            <li>Market analysis & forecasting</li>
+            <li>Education & capability building</li>
+          </ul>
+        </article>
+      </div>
+      <div style="margin-top:48px;text-align:center;" class="reveal">
+        <a href="services.html" class="btn btn-primary btn-arrow">Explore All Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       NEWS / RSS
+  ══════════════════════════════════════ -->
+  <section class="news" id="news">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label" data-i18n="news.label">Latest News</div>
+        <h2 data-i18n="news.h2">Intelligence<br>in motion.</h2>
+      </div>
+      <div class="news-grid" id="news-container">
+        <div class="news-loading">Loading latest intelligence...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       CONTACT STRIP
+  ══════════════════════════════════════ -->
+  <section style="background:var(--dark2);border-top:1px solid var(--border);padding:80px 0;">
+    <div class="container" style="text-align:center;">
+      <div class="section-label" style="justify-content:center;" data-i18n="contact.label">Contact</div>
+      <h2 style="margin-bottom:24px;" class="reveal" data-i18n="contact.h2">Let's build<br>together.</h2>
+      <p style="max-width:520px;margin:0 auto 40px;font-size:18px;" class="reveal reveal-delay-2">
+        The gap between companies that get this and companies that don't
+        is widening. Every single day.
+      </p>
+      <div class="reveal reveal-delay-3">
+        <a href="contact.html" class="btn btn-primary btn-arrow" style="font-size:14px;padding:16px 40px;">Start the Conversation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
   <footer>
-    <div class="footer-copy">© 2026 Faralai. All rights reserved.</div>
-    <div class="footer-dot"></div>
+    <div class="container">
+      <div class="footer-bar">
+        <div class="footer-bar-left"></div>
+        <div class="footer-bar-right"></div>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">fara l<span class="ai-line ai">ai</span></a>
+          <p>Converging AI, data, business intelligence and strategy into solutions the world hasn't seen yet.</p>
+          <div class="social-links">
+            <a href="https://linkedin.com/company/faralai" class="social-link" target="_blank" aria-label="LinkedIn">in</a>
+            <a href="https://twitter.com/faralai" class="social-link" target="_blank" aria-label="X / Twitter">𝕏</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="services.html#sports">Sports Marketing</a></li>
+            <li><a href="services.html#sponsorship">Sponsorship CRM</a></li>
+            <li><a href="services.html#performance">Performance Marketing</a></li>
+            <li><a href="services.html#pr">PR & Communications</a></li>
+            <li><a href="services.html#ai">Agentic AI</a></li>
+            <li><a href="services.html#bi">Business Intelligence</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="index.html#news">Latest News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <ul>
+            <li><a href="mailto:info@faralai.com">info@faralai.com</a></li>
+            <li><a href="https://faralai.com">faralai.com</a></li>
+          </ul>
+          <br>
+          <h5>Languages</h5>
+          <ul>
+            <li><a href="#" onclick="document.querySelector('[data-lang=en]').click();return false;">English</a></li>
+            <li><a href="#" onclick="document.querySelector('[data-lang=es]').click();return false;">Español</a></li>
+            <li><a href="#" onclick="document.querySelector('[data-lang=fr]').click();return false;">Français</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Faralai. All rights reserved.</p>
+        <p>Converging Intelligence —›‹—</p>
+      </div>
+    </div>
   </footer>
-</div>
+
+  <script src="assets/js/translations.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
