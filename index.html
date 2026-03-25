@@ -535,7 +535,7 @@
           
           {/* Right side - Animated particles with fade edges */}
           <div style={{position:'relative',minHeight:650,display:'flex',alignItems:'center',justifyContent:'center'}}>
-            <div style={{position:'relative',width:'120%',height:'120%',marginLeft:'-10%'}}>
+            <div style={{position:'absolute',inset:0,width:'120%',height:'120%',left:'-10%',top:'-10%'}}>
               <HeroBackground/>
               {/* Fade overlay on edges */}
               <div style={{position:'absolute',inset:0,background:'radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.4) 70%, #000 100%)',pointerEvents:'none',zIndex:2}}/>
@@ -638,56 +638,126 @@
     // ═══════════════════════════════════════════════════════════════
     // PROCESS
     // ═══════════════════════════════════════════════════════════════
-    const Process=({t})=>(
-      <section style={{padding:'5rem 1.5rem',position:'relative',zIndex:10,background:'#000',overflow:'hidden'}}>
-        <div style={{maxWidth:1300,margin:'0 auto',position:'relative',zIndex:10}}>
-          <div style={{textAlign:'center',marginBottom:'3rem'}}>
-            <span style={{fontSize:'0.65rem',textTransform:'uppercase',letterSpacing:'0.2em',color:'#a3e635',fontWeight:600}}>{t.process.label}</span>
-            <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'clamp(1.5rem,4vw,2rem)',fontWeight:400,margin:'0.75rem 0'}}>{t.process.title}</h2>
-          </div>
-          
-          <div style={{display:'grid',gridTemplateColumns:'1fr 400px',gap:'3rem',alignItems:'center'}} className="process-layout">
-            {/* Left: Process steps */}
-            <div className="process-grid" style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:'2rem'}}>
-              {t.process.steps.map((step,i)=>(
-                <div key={i} data-hover style={{textAlign:'center',position:'relative',zIndex:2}}>
-                  <div style={{width:56,height:56,margin:'0 auto 1rem',background:'#a3e635',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'0.9rem',fontWeight:700,color:'#000',transition:'all 0.3s'}}
-                    onMouseEnter={e=>{e.target.style.background='#8b5cf6';e.target.style.color='#fff';e.target.style.transform='scale(1.1)'}}
-                    onMouseLeave={e=>{e.target.style.background='#a3e635';e.target.style.color='#000';e.target.style.transform='scale(1)'}}
-                  >{step.num}</div>
-                  <h3 style={{fontSize:'0.9rem',fontWeight:600,marginBottom:'0.3rem'}}>{step.title}</h3>
-                  <p style={{color:'#71717a',fontSize:'0.8rem'}}>{step.desc}</p>
-                </div>
-              ))}
+    const Process=({t})=>{
+      const [hoveredStep,setHoveredStep]=useState(null);
+      
+      return(
+        <section style={{padding:'5rem 1.5rem',position:'relative',zIndex:10,background:'#000',overflow:'hidden'}}>
+          <div style={{maxWidth:1300,margin:'0 auto',position:'relative',zIndex:10}}>
+            <div style={{textAlign:'center',marginBottom:'4rem'}}>
+              <span style={{fontSize:'0.65rem',textTransform:'uppercase',letterSpacing:'0.2em',color:'#a3e635',fontWeight:600}}>{t.process.label}</span>
+              <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'clamp(1.5rem,4vw,2rem)',fontWeight:400,margin:'0.75rem 0'}}>{t.process.title}</h2>
             </div>
             
-            {/* Right: Image container with fade edges */}
-            <div style={{position:'relative',height:500,borderRadius:24,overflow:'hidden'}} className="process-image-container">
-              <img 
-                src="assets/athlete-cyborg-1.png" 
-                alt="AI-powered athlete" 
-                style={{
-                  width:'100%',
-                  height:'100%',
-                  objectFit:'cover',
-                  objectPosition:'center'
-                }}
-              />
-              {/* Fade overlay on edges to blend with black background */}
-              <div style={{position:'absolute',inset:0,background:'linear-gradient(to left, transparent 20%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.9) 100%)',pointerEvents:'none'}}/>
-              <div style={{position:'absolute',inset:0,background:'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 30%)',pointerEvents:'none'}}/>
-              <div style={{position:'absolute',inset:0,background:'linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 20%)',pointerEvents:'none'}}/>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 400px',gap:'4rem',alignItems:'center'}} className="process-layout">
+              {/* Left: Interactive process flow */}
+              <div style={{position:'relative'}}>
+                {/* Connecting path SVG */}
+                <svg style={{position:'absolute',top:0,left:0,width:'100%',height:'100%',zIndex:0}} viewBox="0 0 600 400">
+                  <path 
+                    d="M 150,50 Q 300,50 300,100 T 450,150 Q 500,150 500,200 T 300,250 Q 150,250 150,300 T 300,350" 
+                    stroke="rgba(163,230,53,0.2)" 
+                    strokeWidth="2" 
+                    fill="none"
+                    strokeDasharray="5,5"
+                  />
+                </svg>
+                
+                {/* Process steps with enhanced interaction */}
+                <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:'3rem',position:'relative',zIndex:1}}>
+                  {t.process.steps.map((step,i)=>(
+                    <div 
+                      key={i} 
+                      data-hover 
+                      style={{
+                        textAlign:'center',
+                        position:'relative',
+                        transition:'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                        transform:hoveredStep===i?'translateY(-8px) scale(1.05)':'translateY(0) scale(1)'
+                      }}
+                      onMouseEnter={()=>setHoveredStep(i)}
+                      onMouseLeave={()=>setHoveredStep(null)}
+                    >
+                      {/* Glow effect when hovered */}
+                      {hoveredStep===i&&(
+                        <div style={{
+                          position:'absolute',
+                          inset:-20,
+                          background:'radial-gradient(circle, rgba(163,230,53,0.15) 0%, transparent 70%)',
+                          borderRadius:'50%',
+                          zIndex:-1,
+                          animation:'pulse-glow 2s infinite'
+                        }}/>
+                      )}
+                      
+                      <div style={{
+                        width:72,
+                        height:72,
+                        margin:'0 auto 1.25rem',
+                        background:hoveredStep===i?'linear-gradient(135deg, #a3e635, #8b5cf6)':'#a3e635',
+                        borderRadius:'50%',
+                        display:'flex',
+                        alignItems:'center',
+                        justifyContent:'center',
+                        fontSize:'1.1rem',
+                        fontWeight:700,
+                        color:hoveredStep===i?'#fff':'#000',
+                        transition:'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                        boxShadow:hoveredStep===i?'0 20px 60px rgba(163,230,53,0.4)':'0 10px 30px rgba(163,230,53,0.2)',
+                        position:'relative',
+                        zIndex:2
+                      }}>
+                        {step.num}
+                      </div>
+                      
+                      <h3 style={{
+                        fontSize:'1rem',
+                        fontWeight:600,
+                        marginBottom:'0.5rem',
+                        color:hoveredStep===i?'#a3e635':'#fff',
+                        transition:'color 0.3s'
+                      }}>{step.title}</h3>
+                      
+                      <p style={{
+                        color:hoveredStep===i?'#d4d4d8':'#71717a',
+                        fontSize:'0.85rem',
+                        lineHeight:1.6,
+                        transition:'color 0.3s'
+                      }}>{step.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Right: Image container with improved fade */}
+              <div style={{position:'relative',height:550,borderRadius:24,overflow:'hidden',border:'none'}} className="process-image-container">
+                <img 
+                  src="assets/athlete-cyborg-1.png" 
+                  alt="AI-powered athlete" 
+                  style={{
+                    width:'100%',
+                    height:'100%',
+                    objectFit:'cover',
+                    objectPosition:'center'
+                  }}
+                />
+                {/* Improved multi-layer fade for seamless integration */}
+                <div style={{position:'absolute',inset:0,background:'linear-gradient(to left, transparent 0%, rgba(0,0,0,0.1) 20%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.95) 100%)',pointerEvents:'none'}}/>
+                <div style={{position:'absolute',inset:0,background:'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.3) 20%, transparent 40%)',pointerEvents:'none'}}/>
+                <div style={{position:'absolute',inset:0,background:'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 15%, transparent 30%)',pointerEvents:'none'}}/>
+                <div style={{position:'absolute',inset:0,background:'linear-gradient(to right, rgba(0,0,0,0.3) 0%, transparent 15%)',pointerEvents:'none'}}/>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-    );
+        </section>
+      );
+    };
 
     // ═══════════════════════════════════════════════════════════════
     // PRICING
     // ═══════════════════════════════════════════════════════════════
     const Pricing=({t})=>{
-      const[quarterly,setQuarterly]=useState(false);
+      const[quarterly,setQuarterly]=useState(true); // Quarterly (15% off) active by default
       const prices={sprint:{m:700,q:700},launch:{m:1700,q:1445},growth:{m:2800,q:2380}};
       
       const Card=({pkg,featured})=>(
@@ -799,7 +869,7 @@
         <div style={{maxWidth:1400,margin:'0 auto',display:'grid',gridTemplateColumns:'300px 1fr 300px',gap:'2rem',alignItems:'center'}} className="cta-layout">
           
           {/* Left image */}
-          <div style={{position:'relative',height:450,borderRadius:24,overflow:'hidden'}} className="cta-image-left">
+          <div style={{position:'relative',height:450,borderRadius:24,overflow:'hidden',border:'none'}} className="cta-image-left">
             <img 
               src="assets/athlete-digital.png" 
               alt="Digital athlete" 
@@ -810,10 +880,11 @@
                 objectPosition:'center'
               }}
             />
-            {/* Fade to blend with background */}
-            <div style={{position:'absolute',inset:0,background:'linear-gradient(to right, rgba(0,0,0,0.8) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.3) 100%)',pointerEvents:'none'}}/>
-            <div style={{position:'absolute',inset:0,background:'linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 30%)',pointerEvents:'none'}}/>
-            <div style={{position:'absolute',inset:0,background:'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 20%)',pointerEvents:'none'}}/>
+            {/* Smooth multi-layer fade */}
+            <div style={{position:'absolute',inset:0,background:'linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 30%, transparent 60%)',pointerEvents:'none'}}/>
+            <div style={{position:'absolute',inset:0,background:'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.3) 20%, transparent 40%)',pointerEvents:'none'}}/>
+            <div style={{position:'absolute',inset:0,background:'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 15%, transparent 30%)',pointerEvents:'none'}}/>
+            <div style={{position:'absolute',inset:0,background:'linear-gradient(to left, rgba(0,0,0,0.2) 0%, transparent 20%)',pointerEvents:'none'}}/>
           </div>
           
           {/* Center content */}
@@ -827,7 +898,7 @@
           </div>
           
           {/* Right image */}
-          <div style={{position:'relative',height:450,borderRadius:24,overflow:'hidden'}} className="cta-image-right">
+          <div style={{position:'relative',height:450,borderRadius:24,overflow:'hidden',border:'none'}} className="cta-image-right">
             <img 
               src="assets/athlete-cyborg-2.png" 
               alt="Cyborg athlete" 
@@ -838,10 +909,11 @@
                 objectPosition:'center'
               }}
             />
-            {/* Fade to blend with background */}
-            <div style={{position:'absolute',inset:0,background:'linear-gradient(to left, rgba(0,0,0,0.8) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.3) 100%)',pointerEvents:'none'}}/>
-            <div style={{position:'absolute',inset:0,background:'linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 30%)',pointerEvents:'none'}}/>
-            <div style={{position:'absolute',inset:0,background:'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 20%)',pointerEvents:'none'}}/>
+            {/* Smooth multi-layer fade */}
+            <div style={{position:'absolute',inset:0,background:'linear-gradient(to left, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 30%, transparent 60%)',pointerEvents:'none'}}/>
+            <div style={{position:'absolute',inset:0,background:'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.3) 20%, transparent 40%)',pointerEvents:'none'}}/>
+            <div style={{position:'absolute',inset:0,background:'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 15%, transparent 30%)',pointerEvents:'none'}}/>
+            <div style={{position:'absolute',inset:0,background:'linear-gradient(to right, rgba(0,0,0,0.2) 0%, transparent 20%)',pointerEvents:'none'}}/>
           </div>
           
         </div>
