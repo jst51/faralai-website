@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
     :root {
       --black:  #060606;
       --lime:   #C8FF00;
@@ -19,7 +19,7 @@
       --card:   #0E0E0E;
       --border: #1A1A1A;
     }
-
+ 
     html, body {
       height: 100%;
       background: var(--black);
@@ -27,14 +27,14 @@
       font-family: 'DM Mono', monospace;
       overflow-x: hidden;
     }
-
+ 
     #canvas-bg {
       position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
     }
-
+ 
     /* ══ LOGIN ══ */
     #login-screen {
       position: fixed;
@@ -46,13 +46,13 @@
       transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1),
                   transform 0.8s cubic-bezier(0.4,0,0.2,1);
     }
-
+ 
     #login-screen.hidden {
       opacity: 0;
       pointer-events: none;
       transform: translateY(-28px) scale(0.98);
     }
-
+ 
     .login-wrap {
       position: relative;
       z-index: 1;
@@ -61,12 +61,12 @@
       padding: 0 24px;
       animation: fadeUp 1s cubic-bezier(0.4,0,0.2,1) both;
     }
-
+ 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(32px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
+ 
     .login-logo {
       display: flex;
       align-items: center;
@@ -74,7 +74,7 @@
       margin-bottom: 44px;
       animation: fadeUp 1s 0.1s cubic-bezier(0.4,0,0.2,1) both;
     }
-
+ 
     .login-logo img {
       width: 44px;
       height: 44px;
@@ -82,7 +82,7 @@
       object-fit: cover;
       display: block;
     }
-
+ 
     .logo-text-wrap .logo-name {
       font-size: 17px;
       font-weight: 400;
@@ -96,7 +96,7 @@
       text-transform: uppercase;
       margin-top: 2px;
     }
-
+ 
     .login-card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -105,7 +105,7 @@
       overflow: hidden;
       animation: fadeUp 1s 0.2s cubic-bezier(0.4,0,0.2,1) both;
     }
-
+ 
     .login-card::before {
       content: '';
       position: absolute;
@@ -113,7 +113,7 @@
       height: 2px;
       background: linear-gradient(90deg, var(--lime), var(--purple));
     }
-
+ 
     .login-card::after {
       content: '';
       position: absolute;
@@ -123,7 +123,7 @@
       background: radial-gradient(circle, rgba(200,255,0,0.04) 0%, transparent 70%);
       pointer-events: none;
     }
-
+ 
     .login-card h1 {
       font-family: 'EB Garamond', serif;
       font-size: 32px;
@@ -132,9 +132,9 @@
       line-height: 1.15;
       margin-bottom: 8px;
     }
-
+ 
     .login-card h1 em { color: var(--lime); font-style: italic; }
-
+ 
     .login-subtitle {
       font-size: 9px;
       color: var(--muted);
@@ -145,16 +145,16 @@
       align-items: center;
       gap: 8px;
     }
-
+ 
     .login-subtitle::before {
       content: '';
       display: inline-block;
       width: 16px; height: 1px;
       background: var(--muted);
     }
-
+ 
     .field { margin-bottom: 18px; }
-
+ 
     .field label {
       display: block;
       font-size: 8.5px;
@@ -163,7 +163,7 @@
       color: var(--muted);
       margin-bottom: 9px;
     }
-
+ 
     .field input {
       width: 100%;
       background: #080808;
@@ -176,14 +176,14 @@
       transition: border-color 0.25s, box-shadow 0.25s;
       -webkit-appearance: none;
     }
-
+ 
     .field input:focus {
       border-color: var(--lime);
       box-shadow: 0 0 0 1px rgba(200,255,0,0.12);
     }
-
+ 
     .field input::placeholder { color: #252525; }
-
+ 
     .error-msg {
       font-size: 9.5px;
       color: #ff5555;
@@ -194,9 +194,9 @@
       transform: translateX(-4px);
       transition: opacity 0.3s, transform 0.3s;
     }
-
+ 
     .error-msg.visible { opacity: 1; transform: translateX(0); }
-
+ 
     .login-btn {
       width: 100%;
       background: var(--lime);
@@ -210,10 +210,10 @@
       cursor: pointer;
       transition: background 0.2s, transform 0.1s;
     }
-
+ 
     .login-btn:hover { background: #d6ff1a; }
     .login-btn:active { transform: scale(0.997); }
-
+ 
     .login-footer-note {
       margin-top: 28px;
       font-size: 8px;
@@ -222,7 +222,7 @@
       text-align: center;
       animation: fadeUp 1s 0.4s cubic-bezier(0.4,0,0.2,1) both;
     }
-
+ 
     @keyframes shake {
       0%,100% { transform: translateX(0); }
       20%      { transform: translateX(-6px); }
@@ -230,7 +230,7 @@
       60%      { transform: translateX(-4px); }
       80%      { transform: translateX(4px); }
     }
-
+ 
     /* ══ PORTAL ══ */
     #portal {
       display: none;
@@ -239,21 +239,21 @@
       position: relative;
       z-index: 1;
     }
-
+ 
     #portal.visible { display: flex; }
-
+ 
     #portal > * {
       opacity: 0;
       transform: translateY(14px);
       transition: opacity 0.55s ease, transform 0.55s ease;
     }
-
+ 
     #portal.animate > *                { opacity: 1; transform: translateY(0); }
     #portal.animate > *:nth-child(1)   { transition-delay: 0.08s; }
     #portal.animate > *:nth-child(2)   { transition-delay: 0.18s; }
     #portal.animate > *:nth-child(3)   { transition-delay: 0.28s; }
     #portal.animate > *:nth-child(4)   { transition-delay: 0.38s; }
-
+ 
     /* TOPBAR */
     .topbar {
       position: sticky;
@@ -268,40 +268,40 @@
       align-items: center;
       justify-content: space-between;
     }
-
+ 
     .topbar-left { display: flex; align-items: center; gap: 18px; }
-
+ 
     .topbar-logo {
       display: flex; align-items: center; gap: 10px;
       text-decoration: none;
     }
-
+ 
     .topbar-logo img {
       width: 26px; height: 26px;
       border-radius: 50%; object-fit: cover;
     }
-
+ 
     .topbar-logo-name {
       font-size: 13px;
       color: var(--white);
       letter-spacing: -0.01em;
     }
-
+ 
     .topbar-divider { width: 1px; height: 18px; background: var(--border); }
-
+ 
     .topbar-client {
       font-size: 9px; color: var(--muted);
       letter-spacing: 0.14em; text-transform: uppercase;
     }
-
+ 
     .topbar-right { display: flex; align-items: center; gap: 14px; }
-
+ 
     .badge-confidential {
       font-size: 7.5px; letter-spacing: 0.22em;
       text-transform: uppercase; color: var(--muted);
       border: 1px solid var(--border); padding: 5px 12px;
     }
-
+ 
     .download-btn {
       display: flex; align-items: center; gap: 9px;
       background: var(--lime); color: var(--black);
@@ -310,17 +310,17 @@
       text-transform: uppercase; padding: 9px 20px;
       transition: background 0.2s; white-space: nowrap;
     }
-
+ 
     .download-btn:hover { background: #d6ff1a; }
     .download-btn svg { width: 11px; height: 11px; flex-shrink: 0; }
-
+ 
     /* WELCOME */
     .welcome-strip {
       padding: 56px 40px 40px;
       border-bottom: 1px solid var(--border);
       position: relative; overflow: hidden;
     }
-
+ 
     .welcome-strip::before {
       content: '';
       position: absolute; top: -80px; left: -80px;
@@ -328,83 +328,126 @@
       background: radial-gradient(circle, rgba(200,255,0,0.055) 0%, transparent 70%);
       pointer-events: none;
     }
-
+ 
+    /* Client logo lockup */
+    .client-logos {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 36px;
+    }
+ 
+    .cl-faralai {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+ 
+    .cl-pic {
+      height: 28px;
+      width: auto;
+      display: block;
+      opacity: 0.9;
+    }
+ 
+    .cl-connector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+ 
+    .cl-line {
+      display: block;
+      width: 18px; height: 1px;
+      background: var(--border);
+    }
+ 
+    .cl-dot {
+      display: block;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--lime);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+ 
     .welcome-tag {
       display: inline-flex; align-items: center; gap: 9px;
       font-size: 8.5px; letter-spacing: 0.22em;
       text-transform: uppercase; color: var(--lime);
       margin-bottom: 18px;
     }
-
+ 
     .welcome-tag .dot {
       width: 6px; height: 6px;
       border-radius: 50%; background: var(--lime);
       animation: pulse 2.5s ease-in-out infinite;
     }
-
+ 
     @keyframes pulse {
       0%,100% { opacity: 1; transform: scale(1); }
       50%      { opacity: 0.35; transform: scale(0.65); }
     }
-
+ 
     .welcome-strip h2 {
       font-family: 'EB Garamond', serif;
       font-size: clamp(32px, 4vw, 52px);
       font-weight: 400; line-height: 1.08;
       color: var(--white); margin-bottom: 20px;
     }
-
+ 
     .welcome-strip h2 em { font-style: italic; color: var(--lime); }
-
+ 
     .welcome-strip p {
       font-size: 11px; color: var(--muted);
       max-width: 520px; line-height: 1.9; letter-spacing: 0.02em;
     }
-
+ 
     .meta-row { display: flex; gap: 40px; margin-top: 36px; flex-wrap: wrap; }
-
+ 
     .meta-item .meta-label {
       font-size: 7.5px; letter-spacing: 0.22em;
       text-transform: uppercase; color: var(--muted); margin-bottom: 5px;
     }
-
+ 
     .meta-item .meta-value { font-size: 13px; color: var(--white); }
     .meta-item .meta-value.highlight { color: var(--lime); }
-
+ 
     /* VIEWER */
     .viewer-wrap { flex: 1; padding: 36px 40px; }
-
+ 
     .viewer-label {
       font-size: 8px; letter-spacing: 0.22em;
       text-transform: uppercase; color: var(--muted);
       margin-bottom: 18px;
       display: flex; align-items: center; gap: 10px;
     }
-
+ 
     .viewer-label::before {
       content: ''; display: inline-block;
       width: 24px; height: 1px; background: var(--lime);
     }
-
+ 
     .pdf-container {
       width: 100%; background: #090909;
       border: 1px solid var(--border);
       position: relative;
       box-shadow: 0 0 80px rgba(0,0,0,0.6);
     }
-
+ 
     .pdf-container::before {
       content: ''; position: absolute;
       top: 0; left: 0; right: 0; height: 1px;
       background: linear-gradient(90deg, var(--lime), transparent 60%);
       z-index: 1;
     }
-
+ 
     .pdf-container iframe {
-      width: 100%; height: 86vh;
+      width: 100%; height: 90vh;
+      min-height: 700px;
       border: none; display: block;
     }
-
+ 
     /* FOOTER */
     .portal-footer {
       padding: 22px 40px;
@@ -413,11 +456,11 @@
       justify-content: space-between;
       flex-wrap: wrap; gap: 10px;
     }
-
+ 
     .portal-footer span { font-size: 8.5px; color: #222; letter-spacing: 0.1em; }
     .portal-footer a { color: var(--lime); text-decoration: none; opacity: 0.6; transition: opacity 0.2s; }
     .portal-footer a:hover { opacity: 1; }
-
+ 
     @media (max-width: 640px) {
       .login-card { padding: 32px 22px; }
       .topbar { padding: 0 16px; height: 52px; }
@@ -430,9 +473,9 @@
   </style>
 </head>
 <body>
-
+ 
 <canvas id="canvas-bg"></canvas>
-
+ 
 <!-- LOGIN -->
 <div id="login-screen">
   <div class="login-wrap">
@@ -443,11 +486,11 @@
         <div class="logo-tag">Converging Intelligence</div>
       </div>
     </div>
-
+ 
     <div class="login-card">
       <h1>Private<br><em>Client Portal.</em></h1>
       <p class="login-subtitle">Restricted access · Authorised users only</p>
-
+ 
       <div class="field">
         <label>Username</label>
         <input type="text" id="username" placeholder="———" autocomplete="off" spellcheck="false" />
@@ -456,15 +499,15 @@
         <label>Password</label>
         <input type="password" id="password" placeholder="———" autocomplete="off" />
       </div>
-
+ 
       <div class="error-msg" id="error-msg">Incorrect credentials. Please try again.</div>
       <button class="login-btn" onclick="handleLogin()">Access Portal &nbsp;→</button>
     </div>
-
+ 
     <div class="login-footer-note">faralai.com · Confidential</div>
   </div>
 </div>
-
+ 
 <!-- PORTAL -->
 <div id="portal">
   <nav class="topbar">
@@ -478,6 +521,7 @@
     </div>
     <div class="topbar-right">
       <span class="badge-confidential">Confidential</span>
+      <img src="prime_invest_club_logo.png" alt="Prime Invest Club" style="height:20px;width:auto;opacity:0.75;display:block;" />
       <a class="download-btn"
          href="PrimeInvestClub_Faralai_Proposal_WEB.pdf"
          download="PrimeInvestClub_Faralai_Proposal.pdf">
@@ -491,8 +535,17 @@
       </a>
     </div>
   </nav>
-
+ 
   <div class="welcome-strip">
+    <div class="client-logos">
+      <img src="faralai_icon.jpg" alt="Faralai" class="cl-faralai" />
+      <div class="cl-connector">
+        <span class="cl-line"></span>
+        <span class="cl-dot"></span>
+        <span class="cl-line"></span>
+      </div>
+      <img src="prime_invest_club_logo.png" alt="Prime Invest Club" class="cl-pic" />
+    </div>
     <div class="welcome-tag">
       <span class="dot"></span>
       3-Phase Digital Transformation Proposal
@@ -514,7 +567,7 @@
       </div>
     </div>
   </div>
-
+ 
   <div class="viewer-wrap">
     <div class="viewer-label">Proposal Document</div>
     <div class="pdf-container">
@@ -525,13 +578,13 @@
       ></iframe>
     </div>
   </div>
-
+ 
   <footer class="portal-footer">
     <span>© 2026 Faralai · All rights reserved · Confidential</span>
     <span><a href="https://faralai.com" target="_blank">faralai.com</a></span>
   </footer>
 </div>
-
+ 
 <script>
 /* ── CANVAS NETWORK ANIMATION ── */
 const canvas = document.getElementById('canvas-bg');
@@ -540,12 +593,12 @@ let W, H, nodes;
 const mouse = { x: -999, y: -999 };
 const NODE_COUNT = 65;
 const MAX_DIST = 155;
-
+ 
 function resize() {
   W = canvas.width  = window.innerWidth;
   H = canvas.height = window.innerHeight;
 }
-
+ 
 function initNodes() {
   nodes = Array.from({ length: NODE_COUNT }, () => ({
     x:    Math.random() * W,
@@ -556,16 +609,16 @@ function initNodes() {
     lime: Math.random() > 0.45
   }));
 }
-
+ 
 function draw() {
   ctx.clearRect(0, 0, W, H);
-
+ 
   nodes.forEach(n => {
     n.x += n.vx; n.y += n.vy;
     if (n.x < 0 || n.x > W) n.vx *= -1;
     if (n.y < 0 || n.y > H) n.vy *= -1;
   });
-
+ 
   // Edges
   for (let i = 0; i < nodes.length; i++) {
     for (let j = i + 1; j < nodes.length; j++) {
@@ -590,7 +643,7 @@ function draw() {
       }
     }
   }
-
+ 
   // Nodes
   nodes.forEach(n => {
     const dx = n.x - mouse.x, dy = n.y - mouse.y;
@@ -601,7 +654,7 @@ function draw() {
     const col = n.lime
       ? `rgba(200,255,0,`
       : `rgba(123,104,238,`;
-
+ 
     if (prox > 0.08) {
       const grd = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 9);
       grd.addColorStop(0, col + (prox * 0.14) + ')');
@@ -611,32 +664,32 @@ function draw() {
       ctx.arc(n.x, n.y, r * 9, 0, Math.PI * 2);
       ctx.fill();
     }
-
+ 
     ctx.beginPath();
     ctx.fillStyle = col + alpha + ')';
     ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
     ctx.fill();
   });
-
+ 
   requestAnimationFrame(draw);
 }
-
+ 
 window.addEventListener('resize', () => { resize(); initNodes(); });
 window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
 resize(); initNodes(); draw();
-
+ 
 /* ── LOGIN ── */
 document.addEventListener('keydown', e => { if (e.key === 'Enter') handleLogin(); });
-
+ 
 function handleLogin() {
   const u   = document.getElementById('username').value.trim().toLowerCase();
   const p   = document.getElementById('password').value.trim();
   const err = document.getElementById('error-msg');
-
+ 
   if (u === 'primeinvestclub' && p === 'C0nverg3!') {
     err.classList.remove('visible');
     document.getElementById('login-screen').classList.add('hidden');
-
+ 
     const portal = document.getElementById('portal');
     portal.classList.add('visible');
     requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -653,6 +706,10 @@ function handleLogin() {
     });
   }
 }
+</script>
+ 
+</body>
+</html>
 </script>
 
 </body>
