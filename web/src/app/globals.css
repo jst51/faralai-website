@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+/* Faralai · the international board, with a game plan.
+   The whole page is one desk seen from above: a single grid of tiles with 8px gaps.
+   Colour comes from the logo (lime, violet) on paper-white tiles over a warm grey desk; the dark
+   tiles are stadium-night navy, and headlines use condensed stadium-signage type. */
+@theme {
+  --color-desk: #ecebe7;
+  --color-paper: #ffffff;
+  --color-ink: #161616;
+  --color-ink-2: #45453f;
+  --color-mute: #6b6b64;
+  --color-line: #dcdad3;
+  --color-lime: #c8f02c;
+  --color-violet: #8e83e8;
+  --color-violet-ink: #120f2e;
+  --color-night: #0e1a3a;
+  --color-night-line: #2a3a6b;
+  --color-night-mute: #aeb6cc;
+
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-shoulders), var(--font-schibsted), sans-serif;
+
+  --radius-tile: 14px;
+  --spacing-gap: 8px;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 88px;
+}
+body {
+  background: var(--color-desk);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+::selection {
+  background: var(--color-lime);
+  color: var(--color-ink);
+}
+:focus-visible {
+  outline: 2px solid var(--color-violet);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@layer components {
+  /* One shared grid for every section: 2 columns on phones, 6 on tablets, 12 on desktop. */
+  .board {
+    display: grid;
+    gap: var(--spacing-gap);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (min-width: 768px) {
+    .board { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1100px) {
+    .board { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  }
+
+  .tile {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-tile);
+    background: var(--color-paper);
+    padding: clamp(18px, 2vw, 28px);
+    min-width: 0;
+  }
+  .tile-night { background: var(--color-night); color: #fff; }
+  .tile-lime { background: var(--color-lime); color: var(--color-ink); }
+  .tile-violet { background: var(--color-violet); color: var(--color-violet-ink); }
+
+  .tile-label { font-size: 0.86rem; font-weight: 500; color: var(--color-mute); }
+  .tile-night .tile-label { color: var(--color-night-mute); }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.005em;
+    line-height: 0.86;
+    text-wrap: balance;
+  }
+  .h-hero { font-size: clamp(3.6rem, 7.2vw, 7.6rem); }
+  .h-section { font-size: clamp(2.6rem, 4.6vw, 4.6rem); }
+  .h-tile { font-size: clamp(1.3rem, 1.7vw, 1.65rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.12; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.98rem;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .btn-ink { background: var(--color-night); color: #fff; }
+  .btn-ink:hover { background: var(--color-violet); color: var(--color-violet-ink); }
+  .btn-line { border-color: var(--color-line); color: var(--color-ink); }
+  .btn-line:hover { border-color: var(--color-ink); }
+  .btn-lime { background: var(--color-lime); color: var(--color-ink); }
+  .btn-lime:hover { background: #fff; }
+
+  .chip {
+    display: inline-flex;
+    border: 1px solid var(--color-line);
+    border-radius: 8px;
+    padding: 5px 11px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    white-space: nowrap;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .field label { font-size: 0.84rem; font-weight: 600; color: var(--color-ink-2); }
+  .field input,
+  .field select {
+    appearance: none;
+    width: 100%;
+    background: var(--color-desk);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: var(--color-ink);
+    font: 500 1rem/1.4 var(--font-sans);
+    padding: 13px 14px;
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+  .field select {
+    background-image: linear-gradient(45deg, transparent 50%, var(--color-ink-2) 50%),
+      linear-gradient(135deg, var(--color-ink-2) 50%, transparent 50%);
+    background-position: calc(100% - 18px) 54%, calc(100% - 13px) 54%;
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 36px;
+  }
+  .field input:focus,
+  .field select:focus {
+    outline: none;
+    background-color: #fff;
+    border-color: var(--color-violet);
+  }
+}
+
+/* The one orchestrated moment: hero tiles settle onto the desk on load. Pure CSS, so the
+   content is never hidden waiting for JavaScript. */
+.settle {
+  animation: settle 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms + 60ms);
+}
+@keyframes settle {
+  from { opacity: 0; transform: translateY(18px) scale(0.985); }
+}
+
+/* Logo carousel: each row holds its logos four times and slides by half, so the loop is seamless. */
+.logo-track { animation: logo-slide 50s linear infinite; }
+.logo-track-reverse { animation-direction: reverse; animation-duration: 58s; }
+.logo-marquee:hover .logo-track { animation-play-state: paused; }
+@keyframes logo-slide { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .logo-track { animation: none; flex-wrap: wrap; width: auto; }
+}
+
+/* Progress bar of the current showreel scene. */
+@keyframes reel-fill {
+  from { width: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
