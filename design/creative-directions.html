@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Faralai — three creative directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Big+Shoulders+Display:wght@600;800;900&family=Barlow:wght@400;500;600&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap">
+<style>
+  :root{--ink:#161616;--mute:#6b6b66;--line:#dedcd6;--bg:#f6f5f2}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 'Schibsted Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .page{max-width:1240px;margin:0 auto;padding:56px 24px 96px}
+  header.top h1{font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.02;letter-spacing:-.03em;margin:0 0 16px;font-weight:800}
+  header.top p{max-width:68ch;color:#3d3d3a;margin:0 0 10px}
+  .stack{margin-top:28px;padding:22px 24px;background:#fff;border:1px solid var(--line);border-radius:14px;display:grid;grid-template-columns:200px 1fr;gap:10px 24px}
+  .stack b{font-weight:700}
+  .stack ul{margin:0;padding-left:18px}
+  .stack li{margin:3px 0}
+  @media (max-width:720px){.stack{grid-template-columns:1fr}}
+
+  .dir{margin-top:88px}
+  .dir-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;margin-bottom:20px}
+  .dir-head .letter{font-size:1rem;font-weight:700;color:var(--mute)}
+  .dir-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem);letter-spacing:-.025em;margin:0;font-weight:800}
+  .dir-head .feel{color:var(--mute)}
+  .frame{border-radius:16px;overflow:hidden;border:1px solid rgba(0,0,0,.12);box-shadow:0 30px 60px -40px rgba(0,0,0,.45);position:relative}
+  .specs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}
+  .spec{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+  .spec h3{margin:0 0 8px;font-size:1rem}
+  .spec p,.spec li{font-size:.95rem;color:#35352f}
+  .spec ul{margin:0;padding-left:18px}
+  .spec p{margin:0 0 8px}
+  .swatches{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .sw{display:flex;align-items:center;gap:8px;font-size:.8rem;color:#45453f}
+  .sw i{width:26px;height:26px;border-radius:7px;border:1px solid rgba(0,0,0,.12)}
+  .verdict{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+  .verdict div{border-radius:14px;padding:18px 22px;font-size:.95rem}
+  .verdict .pro{background:#eaf3d6}
+  .verdict .con{background:#f3e6e4}
+  .verdict h4{margin:0 0 6px;font-size:.95rem}
+  .verdict ul{margin:0;padding-left:18px}
+  @media (max-width:900px){.specs{grid-template-columns:1fr}.verdict{grid-template-columns:1fr}}
+
+  /* ───────── A · Chapters ───────── */
+  .a{font-family:'Syne',sans-serif;height:640px;display:grid;grid-template-rows:auto 1fr;background:#0C3B7A;color:#F7F7F2}
+  .a nav{display:flex;justify-content:space-between;align-items:center;padding:22px 32px;font-weight:600;font-size:.95rem}
+  .a nav .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;letter-spacing:-.02em}
+  .a nav .links{display:flex;gap:26px;opacity:.85}
+  .a nav .cta{background:#C8F02C;color:#141414;padding:10px 18px;border-radius:999px;font-weight:700}
+  .a .fields{display:grid;grid-template-columns:1.55fr 1fr;min-height:0}
+  .a .f1{min-width:0;padding:30px 32px 36px;display:flex;flex-direction:column;justify-content:space-between}
+  .a .f1 h3{font-size:clamp(2.2rem,4.6vw,5.4rem);line-height:.88;letter-spacing:-.045em;margin:0;font-weight:800}
+  .a .f1 p{max-width:40ch;font-family:'Schibsted Grotesk';font-size:1.02rem;opacity:.9;margin:0}
+  .a .f2{display:grid;grid-template-rows:1.25fr 1fr}
+  .a .photo{background:url('/assets/jose-manzanedo.jpg') center 25%/cover;position:relative}
+  .a .photo span{position:absolute;left:16px;bottom:14px;background:#F7F7F2;color:#141414;padding:6px 12px;border-radius:999px;font-size:.8rem;font-weight:600}
+  .a .next{background:#C2187A;padding:22px 24px;display:flex;flex-direction:column;justify-content:space-between}
+  .a .next b{font-size:1.9rem;line-height:1;letter-spacing:-.03em}
+  .a .next small{font-family:'Schibsted Grotesk';font-size:.85rem;opacity:.9}
+  .a .strip{position:absolute;right:0;top:0;bottom:0;width:10px;display:grid;grid-template-rows:repeat(5,1fr)}
+  @media (max-width:820px){.a{height:auto}.a .fields{grid-template-columns:1fr}.a .f2{min-height:420px}.a nav .links{display:none}}
+
+  /* ───────── B · Game plan ───────── */
+  .b{font-family:'Barlow',sans-serif;height:640px;background:#0E1A3A;color:#F4F6FA;position:relative;overflow:hidden}
+  .b nav{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:22px 32px;font-size:.95rem;font-weight:500}
+  .b nav .logo{display:flex;align-items:center;gap:10px;font-family:'Big Shoulders Display';font-weight:800;font-size:1.6rem;letter-spacing:.01em}
+  .b nav .links{display:flex;gap:26px;opacity:.8}
+  .b nav .cta{border:2px solid #C8F02C;color:#C8F02C;padding:8px 18px;font-weight:600;border-radius:4px}
+  .b svg.pitch{position:absolute;top:0;right:0;bottom:0;width:52%;height:100%}
+  .b .copy{position:absolute;left:32px;bottom:40px;z-index:2;max-width:50%}
+  .b h3{font-family:'Big Shoulders Display';font-weight:900;font-size:clamp(3.4rem,7.4vw,8.2rem);line-height:.82;letter-spacing:-.01em;margin:0;text-transform:uppercase}
+  .b h3 .go{color:#C8F02C}
+  .b .copy p{max-width:44ch;font-size:1.08rem;color:#c9d0e2;margin:18px 0 0}
+  .b .board{position:absolute;right:32px;top:92px;z-index:2;background:rgba(14,26,58,.82);border:1px solid #2c3a66;border-radius:8px;padding:14px 16px;width:250px;font-size:.85rem}
+  .b .board .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #22305a}
+  .b .board .row:last-child{border:0}
+  .b .board b{font-family:'Big Shoulders Display';font-size:1.25rem;font-weight:800;color:#C8F02C}
+  .b .picker{position:absolute;right:32px;bottom:40px;z-index:2;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;max-width:420px}
+  .b .picker button{font:600 .85rem 'Barlow';background:transparent;color:#F4F6FA;border:1px solid #3a4a7a;border-radius:999px;padding:8px 14px;cursor:pointer}
+  .b .picker button[aria-pressed="true"]{background:#C8F02C;color:#0E1A3A;border-color:#C8F02C}
+  .b .route{fill:none;stroke:#C8F02C;stroke-width:3;stroke-linecap:round;stroke-dasharray:6 9;animation:march 1.2s linear infinite}
+  .b .route-solid{fill:none;stroke:#8E83E8;stroke-width:2.5;stroke-linecap:round}
+  @keyframes march{to{stroke-dashoffset:-30}}
+  @media (prefers-reduced-motion:reduce){.b .route{animation:none}}
+  @media (max-width:820px){.b .copy{max-width:none;right:32px}.b svg.pitch{width:100%;opacity:.45}.b{height:760px}.b .board{display:none}.b nav .links{display:none}.b .picker{left:32px;right:auto;bottom:24px;justify-content:flex-start}.b .copy{bottom:120px}}
+
+  /* ───────── C · The board ───────── */
+  .c{font-family:'Schibsted Grotesk',sans-serif;background:#ECEBE7;padding:10px;height:640px;display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:56px repeat(6,1fr);gap:8px}
+  .c .t{background:#fff;border-radius:10px;padding:16px 18px;position:relative;overflow:hidden}
+  .c .nav{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:0 18px}
+  .c .nav .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;letter-spacing:-.02em}
+  .c .nav .links{display:flex;gap:22px;font-size:.92rem;color:#45453f}
+  .c .nav .cta{background:#161616;color:#fff;padding:8px 16px;border-radius:8px;font-weight:600;font-size:.9rem}
+  .c .name{grid-column:1/8;grid-row:2/5;display:flex;flex-direction:column;justify-content:space-between}
+  .c .name h3{font-size:clamp(2.6rem,5.6vw,5rem);line-height:.92;letter-spacing:-.045em;margin:0;font-weight:800}
+  .c .name p{max-width:44ch;color:#45453f;margin:0}
+  .c .photo{grid-column:8/11;grid-row:2/6;background:url('/assets/jose-manzanedo.jpg') center 25%/cover}
+  .c .photo span{position:absolute;left:12px;bottom:12px;background:#fff;border-radius:6px;padding:4px 10px;font-size:.8rem;font-weight:600}
+  .c .lime{grid-column:11/13;grid-row:2/4;background:#C8F02C;display:flex;flex-direction:column;justify-content:space-between}
+  .c .lime b{font-size:2.6rem;line-height:1;letter-spacing:-.04em}
+  .c .lime small{font-size:.82rem;font-weight:500}
+  .c .clocks{grid-column:11/13;grid-row:4/8;background:#161616;color:#fff;display:flex;flex-direction:column;gap:2px}
+  .c .clocks .h{font-size:.82rem;color:#9a9a92;margin-bottom:6px}
+  .c .clocks .row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid #2b2b28;font-size:.88rem}
+  .c .clocks .row b{font-variant-numeric:tabular-nums;font-size:1.05rem}
+  .c .clocks .row.home b{color:#C8F02C}
+  .c .clocks .ok{margin-top:auto;font-size:.8rem;color:#c9c9c0}
+  .c .brands{grid-column:1/5;grid-row:5/8;display:flex;flex-wrap:wrap;align-content:flex-start;gap:6px}
+  .c .brands .h{width:100%;font-size:.82rem;color:#6b6b66;margin-bottom:4px}
+  .c .brands span{border:1px solid #dcdad3;border-radius:6px;padding:4px 10px;font-weight:600;font-size:.9rem}
+  .c .violet{grid-column:5/8;grid-row:5/8;background:#8E83E8;color:#120f2e;display:flex;flex-direction:column;justify-content:space-between}
+  .c .violet b{font-size:1.5rem;line-height:1.05;letter-spacing:-.02em}
+  .c .violet small{font-weight:600}
+  .c .svc{grid-column:8/11;grid-row:6/8;display:flex;flex-direction:column;justify-content:space-between}
+  .c .svc ul{list-style:none;margin:0;padding:0;font-weight:600;font-size:.95rem}
+  .c .svc li{padding:3px 0}
+  .c .svc .h{font-size:.82rem;color:#6b6b66}
+  @media (max-width:900px){
+    .c{height:auto;grid-template-columns:repeat(2,1fr);grid-template-rows:auto}
+    .c .t{grid-column:auto!important;grid-row:auto!important;min-height:150px}
+    .c .nav,.c .name{grid-column:1/-1!important}
+    .c .nav .links{display:none}
+    .c .photo{min-height:260px}
+  }
+
+  .mark{width:30px;height:30px;flex:none}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="top">
+  <h1>Faralai: three creative directions</h1>
+  <p>Each direction below has a working hero mockup that uses your real content and photo. They differ in mood, layout, motion and how they win a client. Look at them on desktop and on your phone, then tell me which one to build, or what to take from each.</p>
+  <p>All three keep the brand marks you already have (the lime circle with violet bars), are bilingual ES/EN, and lead to the free audit.</p>
+
+  <div class="stack">
+    <b>Shared tech stack</b>
+    <ul>
+      <li><b>Next.js + React + TypeScript</b>, exported as a static site, so it runs on any normal hosting with no server.</li>
+      <li><b>Tailwind CSS</b> for the design system, with <b>Motion</b> for interface animation and <b>GSAP ScrollTrigger + Lenis</b> for scroll-driven scenes and smooth scrolling.</li>
+      <li><b>React Three Fiber (WebGL)</b> only where a direction needs a 3D moment, loaded lazily so the page stays fast.</li>
+      <li><b>next-intl</b> for Spanish and English URLs, <b>MDX</b> for case studies you can add without code, and Formspree for the audit form (same inbox as today).</li>
+      <li>Built for SEO and speed: static HTML on every page, structured data and image optimisation, aiming for Lighthouse 95+.</li>
+    </ul>
+  </div>
+</header>
+
+<!-- ═══════════ A ═══════════ -->
+<section class="dir" id="a">
+  <div class="dir-head"><span class="letter">Direction A</span><h2>Marbella in chapters</h2><span class="feel">Creative, warm, art-gallery</span></div>
+  <div class="frame">
+    <div class="a">
+      <nav>
+        <span class="logo"><svg class="mark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#C8F02C"/><g stroke="#8E83E8" stroke-width="7.5" stroke-linecap="round"><line x1="27" y1="36" x2="73" y2="36"/><line x1="27" y1="50" x2="69" y2="50"/><line x1="27" y1="64" x2="51" y2="64"/></g></svg>Faralai</span>
+        <span class="links"><span>Work</span><span>Services</span><span>Jose</span><span>ES / EN</span></span>
+        <span class="cta">Get your free audit</span>
+      </nav>
+      <div class="fields">
+        <div class="f1">
+          <h3>Growth with Mediterranean light.</h3>
+          <p>Business, marketing and brand consulting from Marbella, for companies on the Costa del Sol and across Europe that want to grow, not just look good.</p>
+        </div>
+        <div class="f2">
+          <div class="photo"><span>Jose Manzanedo, founder</span></div>
+          <div class="next"><b>Chapter 2:<br>the problem</b><small>Every section is its own full-screen colour field</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="specs">
+    <div class="spec"><h3>The idea</h3>
+      <p>The page reads as a row of posters, one per chapter, each painted in a colour taken from Marbella itself: the sea at La Concha, bougainvillea, whitewash, plus your logo's lime and violet.</p>
+      <p><b>Live moment:</b> a "growth check". Five quick taps on your situation turn the next chapter's colour and copy into your own diagnosis, then hand you to the audit form.</p>
+    </div>
+    <div class="spec"><h3>Look and motion</h3>
+      <div class="swatches">
+        <span class="sw"><i style="background:#0C3B7A"></i>Sea</span><span class="sw"><i style="background:#C2187A"></i>Bougainvillea</span><span class="sw"><i style="background:#F7F7F2"></i>Whitewash</span><span class="sw"><i style="background:#C8F02C"></i>Lime</span><span class="sw"><i style="background:#8E83E8"></i>Violet</span>
+      </div>
+      <p style="margin-top:12px"><b>Type:</b> Syne, one family, huge and tight for headings.</p>
+      <p><b>Motion:</b> chapters slide over each other as you scroll (GSAP pin), and the background colour changes between them. Nothing else moves.</p>
+    </div>
+    <div class="spec"><h3>Who it wins</h3>
+      <p>Lifestyle, hospitality, real estate and design-minded brands. It feels like an independent creative studio rooted in Marbella, with an international eye.</p>
+    </div>
+  </div>
+  <div class="verdict">
+    <div class="pro"><h4>Strengths</h4><ul><li>The most memorable and "creative studio" of the three</li><li>Local identity anyone will recognise</li><li>Light to build and very fast</li></ul></div>
+    <div class="con"><h4>Watch-outs</h4><ul><li>The bold colours need confident photography to hold up</li><li>Reads less corporate for large B2B clients</li></ul></div>
+  </div>
+</section>
+
+<!-- ═══════════ B ═══════════ -->
+<section class="dir" id="b">
+  <div class="dir-head"><span class="letter">Direction B</span><h2>The game plan</h2><span class="feel">Edgy, kinetic, sports-business</span></div>
+  <div class="frame">
+    <div class="b">
+      <svg class="pitch" viewBox="0 0 600 640" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <g fill="none" stroke="#24356b" stroke-width="1.5">
+          <rect x="20" y="70" width="560" height="540" rx="4"/>
+          <circle cx="20" cy="340" r="80"/>
+          <rect x="450" y="220" width="130" height="240"/>
+          <rect x="530" y="290" width="50" height="100"/>
+        </g>
+        <g id="route"></g>
+        <g font-family="Big Shoulders Display" font-weight="800" font-size="22">
+          <g id="marks"></g>
+        </g>
+      </svg>
+      <nav>
+        <span class="logo"><svg class="mark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#C8F02C"/><g stroke="#8E83E8" stroke-width="7.5" stroke-linecap="round"><line x1="27" y1="36" x2="73" y2="36"/><line x1="27" y1="50" x2="69" y2="50"/><line x1="27" y1="64" x2="51" y2="64"/></g></svg>FARALAI</span>
+        <span class="links"><span>Plays</span><span>Track record</span><span>Method</span><span>ES / EN</span></span>
+        <span class="cta">Book the free audit</span>
+      </nav>
+      <div class="board" aria-label="Track record">
+        <div class="row"><span>Years in the game</span><b>20+</b></div>
+        <div class="row"><span>Leagues and brands</span><b>NBA · UEFA · F1</b></div>
+        <div class="row"><span>Markets</span><b>EU · US · LATAM</b></div>
+      </div>
+      <div class="copy">
+        <h3>Every business<br>needs a <span class="go">game plan.</span></h3>
+        <p>Twenty years building plays for the NBA, UEFA and Formula 1. Now drawing them for companies that want to win their market.</p>
+      </div>
+      <div class="picker" role="group" aria-label="Choose your goal">
+        <button aria-pressed="true" data-play="clients">More clients</button>
+        <button aria-pressed="false" data-play="brand">A stronger brand</button>
+        <button aria-pressed="false" data-play="expand">New markets</button>
+      </div>
+    </div>
+  </div>
+  <div class="specs">
+    <div class="spec"><h3>The idea</h3>
+      <p>Your career in elite sport becomes the language of the site. Growth strategy is shown as a playbook: routes drawn on a pitch, a scoreboard of results, "plays" instead of services.</p>
+      <p><b>Live moment:</b> pick your goal (try the buttons in the mockup) and the play redraws, showing the route Faralai would take: audit → brand → campaigns → growth.</p>
+    </div>
+    <div class="spec"><h3>Look and motion</h3>
+      <div class="swatches">
+        <span class="sw"><i style="background:#0E1A3A"></i>Stadium night</span><span class="sw"><i style="background:#F4F6FA"></i>Floodlight</span><span class="sw"><i style="background:#24356B"></i>Chalk lines</span><span class="sw"><i style="background:#C8F02C"></i>Lime "go"</span><span class="sw"><i style="background:#8E83E8"></i>Violet route</span>
+      </div>
+      <p style="margin-top:12px"><b>Type:</b> Big Shoulders Display (stadium-signage condensed) with Barlow for reading.</p>
+      <p><b>Motion:</b> plays draw themselves as you scroll (SVG + GSAP), and the scoreboard numbers flip when they come into view.</p>
+    </div>
+    <div class="spec"><h3>Who it wins</h3>
+      <p>Sports, events, sponsorship and ambitious founders. It's the boldest about what makes you different: nobody else on the coast has your track record.</p>
+    </div>
+  </div>
+  <div class="verdict">
+    <div class="pro"><h4>Strengths</h4><ul><li>Unmistakably yours, and it uses your strongest proof</li><li>Edgy and memorable for international clients</li><li>The interactive play is a great conversation starter</li></ul></div>
+    <div class="con"><h4>Watch-outs</h4><ul><li>Could narrow you to "the sports guy" for non-sport clients</li><li>Needs more careful animation work, so it's the biggest build</li></ul></div>
+  </div>
+</section>
+
+<!-- ═══════════ C ═══════════ -->
+<section class="dir" id="c">
+  <div class="dir-head"><span class="letter">Direction C</span><h2>The international board</h2><span class="feel">Professional, modern, global</span></div>
+  <div class="frame">
+    <div class="c">
+      <div class="t nav">
+        <span class="logo"><svg class="mark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#C8F02C"/><g stroke="#8E83E8" stroke-width="7.5" stroke-linecap="round"><line x1="27" y1="36" x2="73" y2="36"/><line x1="27" y1="50" x2="69" y2="50"/><line x1="27" y1="64" x2="51" y2="64"/></g></svg>Faralai</span>
+        <span class="links"><span>Services</span><span>Cases</span><span>About</span><span>ES / EN</span></span>
+        <span class="cta">Free audit</span>
+      </div>
+      <div class="t name">
+        <h3>Strategy, brand and growth. From Marbella, for the world.</h3>
+        <p>A senior consultancy for companies that need a plan, a brand and campaigns that bring in clients, run by someone who has done it for the NBA, UEFA and F1.</p>
+      </div>
+      <div class="t photo"><span>Jose Manzanedo</span></div>
+      <div class="t lime"><b>20+</b><small>years with global brands</small></div>
+      <div class="t clocks">
+        <span class="h">Working across time zones</span>
+        <div class="row home"><span>Marbella</span><b data-tz="Europe/Madrid">--:--</b></div>
+        <div class="row"><span>London</span><b data-tz="Europe/London">--:--</b></div>
+        <div class="row"><span>New York</span><b data-tz="America/New_York">--:--</b></div>
+        <div class="row"><span>Dubai</span><b data-tz="Asia/Dubai">--:--</b></div>
+        <span class="ok" id="avail">Checking availability…</span>
+      </div>
+      <div class="t brands"><span class="h">Experience with</span><span>NBA</span><span>UEFA</span><span>Formula 1</span><span>Ford</span><span>Jaguar</span><span>Bridgestone</span><span>Ogilvy</span><span>VML</span><span>DDB</span><span>Burson</span><span>Les Roches</span></div>
+      <div class="t violet"><b>Find out what's holding your growth back</b><small>Free audit, reply in 24 h</small></div>
+      <div class="t svc"><span class="h">What we do</span><ul><li>Business development</li><li>Marketing and leads</li><li>Communications</li><li>Brand and design</li></ul></div>
+    </div>
+  </div>
+  <div class="specs">
+    <div class="spec"><h3>The idea</h3>
+      <p>The site is your desk seen from above: a tidy board of tiles, each one a fact (your photo, your brands, your services, the audit). It says "senior, organised, global" before anyone reads a word.</p>
+      <p><b>Live moment:</b> real clocks for Marbella, London, New York and Dubai, showing whether it's a good time for a call where you are. It quietly proves you work internationally.</p>
+    </div>
+    <div class="spec"><h3>Look and motion</h3>
+      <div class="swatches">
+        <span class="sw"><i style="background:#ECEBE7"></i>Desk</span><span class="sw"><i style="background:#FFFFFF"></i>Paper</span><span class="sw"><i style="background:#161616"></i>Ink</span><span class="sw"><i style="background:#C8F02C"></i>Lime</span><span class="sw"><i style="background:#8E83E8"></i>Violet</span>
+      </div>
+      <p style="margin-top:12px"><b>Type:</b> Schibsted Grotesk, one family, set large and tight.</p>
+      <p><b>Motion:</b> on load the tiles settle into place once. A WebGL version of the logo (the three bars stretching like growth lines) sits in one tile and reacts to the cursor.</p>
+    </div>
+    <div class="spec"><h3>Who it wins</h3>
+      <p>Corporate and international B2B clients, investors and expats setting up on the coast. It's the safest choice for credibility, without looking like a template.</p>
+    </div>
+  </div>
+  <div class="verdict">
+    <div class="pro"><h4>Strengths</h4><ul><li>The most professional and the easiest to scan</li><li>Grows easily: case studies and articles just become new tiles</li><li>Works especially well on mobile</li></ul></div>
+    <div class="con"><h4>Watch-outs</h4><ul><li>The least emotional of the three</li><li>Tile layouts are popular, so it needs good copy and photos to stand out</li></ul></div>
+  </div>
+</section>
+
+</div>
+
+<script>
+// B · redraw the play when a goal is picked
+const plays = {
+  clients: { pts: [[60,470],[170,330],[270,450],[380,300],[500,380]], labels: ['Audit','Leads','Ads','CRM','Clients'] },
+  brand:   { pts: [[60,300],[160,460],[270,330],[380,480],[500,380]], labels: ['Audit','Story','Identity','Press','Brand'] },
+  expand:  { pts: [[60,380],[170,280],[280,500],[390,300],[500,380]], labels: ['Audit','Market','Partners','Launch','Growth'] },
+};
+const route = document.getElementById('route'), marks = document.getElementById('marks');
+function draw(key){
+  const p = plays[key];
+  const d = p.pts.map((q,i)=> (i?'L':'M')+q[0]+' '+q[1]).join(' ');
+  route.innerHTML = `<path class="route-solid" d="${d}" opacity=".35"/><path class="route" d="${d}"/>`;
+  marks.innerHTML = p.pts.map((q,i)=>`<circle cx="${q[0]}" cy="${q[1]}" r="${i===p.pts.length-1?14:10}" fill="${i===p.pts.length-1?'#C8F02C':'#0E1A3A'}" stroke="#C8F02C" stroke-width="2.5"/><text x="${q[0]}" y="${q[1]-22}" text-anchor="middle" fill="#F4F6FA">${p.labels[i].toUpperCase()}</text>`).join('');
+}
+document.querySelectorAll('.b .picker button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.b .picker button').forEach(x=>x.setAttribute('aria-pressed', x===b));
+  draw(b.dataset.play);
+}));
+draw('clients');
+
+// C · live clocks and availability
+function tick(){
+  document.querySelectorAll('[data-tz]').forEach(el=>{
+    el.textContent = new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:el.dataset.tz}).format(new Date());
+  });
+  const h = +new Intl.DateTimeFormat('en-GB',{hour:'numeric',hour12:false,timeZone:'Europe/Madrid'}).format(new Date());
+  const day = new Intl.DateTimeFormat('en-GB',{weekday:'short',timeZone:'Europe/Madrid'}).format(new Date());
+  const open = h>=9 && h<19 && !['Sat','Sun'].includes(day);
+  document.getElementById('avail').textContent = open ? 'In the office now: a good time for a call' : 'Out of hours: leave a message, reply by 10:00 CET';
+}
+tick(); setInterval(tick, 30000);
+</script>
+</body>
+</html>
