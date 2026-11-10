@@ -73,8 +73,13 @@ export function AuditForm({ t, locale }: { t: Dict["audit"]["form"]; locale: str
 
       <label htmlFor="f-consent" className="flex items-start gap-3 text-[0.88rem] leading-normal text-ink-2 sm:col-span-2">
         <input id="f-consent" type="checkbox" name="consentimiento" value="si" required className="mt-0.5 h-[18px] w-[18px] flex-none accent-violet" />
-        <span>{t.consent}</span>
+        <span>
+          {t.consent.before}
+          <a href={t.consent.href} className="underline underline-offset-2">{t.consent.link}</a>
+          {t.consent.after}
+        </span>
       </label>
+      <p className="text-[0.78rem] leading-snug text-mute sm:col-span-2">{t.info}</p>
 
       <div className="flex flex-wrap items-center gap-x-5 gap-y-3 sm:col-span-2">
         <button type="submit" disabled={status === "sending"} className="btn btn-ink disabled:opacity-60">

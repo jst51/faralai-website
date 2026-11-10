@@ -1,5 +1,7 @@
 // All page copy, in Spanish and English. Components never hold copy of their own.
 
+import { OWNER } from './legal';
+
 export const es = {
   locale: 'es',
   meta: {
@@ -10,7 +12,7 @@ export const es = {
   },
   skip: 'Saltar al contenido',
   nav: {
-    home: '/',
+    home: '/es/',
     other: { href: '/en/', label: 'EN', name: 'English' },
     current: 'ES',
     links: [
@@ -32,25 +34,9 @@ export const es = {
       join: 'Un solo equipo, del plan al resultado',
     },
   },
-  reel: {
-    label: 'Showreel de Faralai',
-    pause: 'Pausar',
-    play: 'Reproducir',
-    scenes: {
-      marbella: 'Desde Marbella',
-      strategy: 'Estrategia',
-      analysis: 'Analítica de datos',
-      consulting: 'Consultoría',
-      plan: 'Plan de marketing',
-      social: 'Redes sociales',
-      web: 'Diseño web',
-      graphic: 'Diseño gráfico',
-      execution: 'Ejecución',
-      end: ['Estrategia', 'Ejecución'],
-    },
-    executionList: ['Redes sociales', 'Diseño web', 'Diseño gráfico y branding', 'Campañas y anuncios', 'Generación de leads', 'CRM y email marketing', 'Eventos y activaciones', 'Prensa y comunicación'],
-    social: { post1: 'Nueva temporada', post2: 'Del plan a la publicación', post3: 'Hecho en Marbella' },
-    web: { nav: ['Inicio', 'Servicios', 'Contacto'], title: 'Tu marca, en su mejor versión', cta: 'Reservar' },
+  plan: {
+    hint: 'Sigue bajando para ver cómo se construye',
+    end: ['Estrategia', 'Ejecución'],
   },
   play: {
     title: 'Tu objetivo, nuestro recorrido',
@@ -173,12 +159,32 @@ export const es = {
       need: '¿Qué necesitas?',
       needs: ['Un análisis de mi negocio', 'Una estrategia de crecimiento', 'Gestión de redes sociales', 'Una web nueva', 'Diseño gráfico o branding', 'Campañas y anuncios', 'No lo tengo claro'],
       choose: 'Elige una opción',
-      consent: 'Acepto que Faralai use estos datos para responder a mi solicitud. No los compartimos con terceros.',
+      consent: { before: 'He leído la ', link: 'Política de privacidad', href: '/es/privacidad/', after: ' y acepto que se traten estos datos para responder a mi solicitud.' },
+      info: `Responsable: ${OWNER.name}. Finalidad: responder a tu solicitud y enviarte la auditoría. Destinatarios: Formspree, Inc., proveedor del formulario, con transferencia a EE. UU. Derechos: acceso, rectificación, supresión y otros, en info@faralai.com.`,
       submit: 'Enviar solicitud',
       note: 'Respuesta en menos de 24 h laborables',
       sending: 'Enviando…',
       ok: 'Gracias. Te escribimos en menos de 24 horas laborables.',
       err: 'No se ha podido enviar. Inténtalo de nuevo o escríbenos a info@faralai.com.',
+    },
+  },
+  legal: {
+    navLabel: 'Información legal',
+    links: {
+      notice: { href: '/es/aviso-legal/', label: 'Aviso legal' },
+      privacy: { href: '/es/privacidad/', label: 'Privacidad' },
+      cookies: { href: '/es/cookies/', label: 'Cookies' },
+    },
+    others: { notice: '/en/legal-notice/', privacy: '/en/privacy/', cookies: '/en/cookies/' },
+    settings: 'Configurar cookies',
+    back: 'Volver a la web',
+    updated: 'Última revisión: 10 de noviembre de 2026',
+    banner: {
+      title: 'Tú decides sobre las cookies',
+      text: 'Usamos cookies analíticas de Google para saber cómo se usa la web y mejorarla. Solo se instalan si aceptas.',
+      more: 'Política de cookies',
+      accept: 'Aceptar',
+      reject: 'Rechazar',
     },
   },
   footer: {
@@ -201,7 +207,7 @@ export const en: Dict = {
   skip: 'Skip to content',
   nav: {
     home: '/en/',
-    other: { href: '/', label: 'ES', name: 'Español' },
+    other: { href: '/es/', label: 'ES', name: 'Español' },
     current: 'EN',
     links: [
       { href: '#services', label: 'Services' },
@@ -222,25 +228,9 @@ export const en: Dict = {
       join: 'One team, from the plan to the result',
     },
   },
-  reel: {
-    label: 'Faralai showreel',
-    pause: 'Pause',
-    play: 'Play',
-    scenes: {
-      marbella: 'From Marbella',
-      strategy: 'Strategy',
-      analysis: 'Data analytics',
-      consulting: 'Consulting',
-      plan: 'Marketing plan',
-      social: 'Social media',
-      web: 'Web design',
-      graphic: 'Graphic design',
-      execution: 'Execution',
-      end: ['Strategy', 'Execution'],
-    },
-    executionList: ['Social media', 'Web design', 'Graphic design and branding', 'Campaigns and ads', 'Lead generation', 'CRM and email marketing', 'Events and activations', 'PR and communications'],
-    social: { post1: 'New season', post2: 'From the plan to the post', post3: 'Made in Marbella' },
-    web: { nav: ['Home', 'Services', 'Contact'], title: 'Your brand, at its best', cta: 'Book now' },
+  plan: {
+    hint: 'Keep scrolling to see it being built',
+    end: ['Strategy', 'Execution'],
   },
   play: {
     title: 'Your goal, our route',
@@ -363,12 +353,32 @@ export const en: Dict = {
       need: 'What do you need?',
       needs: ['An analysis of my business', 'A growth strategy', 'Social media management', 'A new website', 'Graphic design or branding', 'Campaigns and ads', 'Not sure yet'],
       choose: 'Choose one',
-      consent: 'I agree that Faralai may use this data to reply to my request. We never share it with third parties.',
+      consent: { before: 'I have read the ', link: 'Privacy policy', href: '/en/privacy/', after: ' and agree that this data may be processed to reply to my request.' },
+      info: `Controller: ${OWNER.name}. Purpose: replying to your request and sending your audit. Recipients: Formspree, Inc., our form provider, with transfer to the US. Rights: access, rectification, erasure and others, at info@faralai.com.`,
       submit: 'Send request',
       note: 'Reply within 24 business hours',
       sending: 'Sending…',
       ok: 'Thank you. We will reply within 24 business hours.',
       err: 'We could not send your request. Please try again or email info@faralai.com.',
+    },
+  },
+  legal: {
+    navLabel: 'Legal information',
+    links: {
+      notice: { href: '/en/legal-notice/', label: 'Legal notice' },
+      privacy: { href: '/en/privacy/', label: 'Privacy' },
+      cookies: { href: '/en/cookies/', label: 'Cookies' },
+    },
+    others: { notice: '/es/aviso-legal/', privacy: '/es/privacidad/', cookies: '/es/cookies/' },
+    settings: 'Cookie settings',
+    back: 'Back to the site',
+    updated: 'Last reviewed: 10 November 2026',
+    banner: {
+      title: 'Cookies are your call',
+      text: 'We use Google analytics cookies to see how the site is used and improve it. They are only set if you accept.',
+      more: 'Cookie policy',
+      accept: 'Accept',
+      reject: 'Reject',
     },
   },
   footer: {

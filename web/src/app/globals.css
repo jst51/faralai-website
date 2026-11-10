@@ -150,16 +150,6 @@ body {
   }
 }
 
-/* The one orchestrated moment: hero tiles settle onto the desk on load. Pure CSS, so the
-   content is never hidden waiting for JavaScript. */
-.settle {
-  animation: settle 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  animation-delay: calc(var(--i, 0) * 70ms + 60ms);
-}
-@keyframes settle {
-  from { opacity: 0; transform: translateY(18px) scale(0.985); }
-}
-
 /* Logo carousel: each row holds its logos four times and slides by half, so the loop is seamless. */
 .logo-track { animation: logo-slide 50s linear infinite; }
 .logo-track-reverse { animation-direction: reverse; animation-duration: 58s; }
@@ -167,11 +157,6 @@ body {
 @keyframes logo-slide { to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) {
   .logo-track { animation: none; flex-wrap: wrap; width: auto; }
-}
-
-/* Progress bar of the current showreel scene. */
-@keyframes reel-fill {
-  from { width: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

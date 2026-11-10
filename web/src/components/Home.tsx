@@ -1,14 +1,14 @@
 import Image from "next/image";
-import type { CSSProperties } from "react";
 import type { Dict } from "@/content/dictionary";
 import { AuditForm } from "./AuditForm";
 import { Behaviour } from "./Behaviour";
 import { Header } from "./Header";
+import { LegalLinks } from "./legal/LegalPage";
 import { LogoCarousel } from "./LogoCarousel";
 import { Mark } from "./Mark";
+import { PlanHero } from "./plan/PlanHero";
 import { Playbook } from "./Playbook";
 import { Services } from "./Services";
-import { Showreel } from "./Showreel";
 
 // Line drawings for the five "sound familiar?" tiles, in the order of t.problem.pains.
 const PAIN_ICONS = [
@@ -25,9 +25,6 @@ const PAIN_SPANS = ["lg:col-span-4", "lg:col-span-3", "lg:col-span-3", "lg:col-s
 // Page order: strategy + execution and the business case first; the founder's photo and story come
 // last, just before the audit form.
 export function Home({ t }: { t: Dict }) {
-  // Hero tiles settle into place once on load, one after another (see .settle in globals.css).
-  const settle = (i: number) => ({ style: { "--i": i } as CSSProperties });
-
   return (
     <div className="mx-auto max-w-[1480px] p-2">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-night focus:px-4 focus:py-2 focus:text-white">
@@ -36,25 +33,13 @@ export function Home({ t }: { t: Dict }) {
       <Header t={t} />
       <Behaviour auditId={t.ids.audit} />
 
-      <main id="main" className="mt-2 flex flex-col gap-2">
-        {/* Hero board: the claim, the showreel, then strategy + execution side by side */}
-        <section className="board" aria-labelledby="hero-title">
-          <div {...settle(0)} className="tile settle col-span-2 flex min-h-[380px] flex-col justify-between gap-8 md:col-span-6 lg:col-span-5">
-            <h1 id="hero-title" className="display h-hero max-w-[13ch]">{t.hero.title}</h1>
-            <div className="flex flex-col gap-6">
-              <p className="max-w-[48ch] text-[1.06rem] text-ink-2">{t.hero.lead}</p>
-              <div className="flex flex-wrap gap-2.5">
-                <a href={`#${t.ids.audit}`} className="btn btn-ink">{t.hero.primary}</a>
-                <a href={`#${t.ids.services}`} className="btn btn-line">{t.hero.secondary}</a>
-              </div>
-            </div>
-          </div>
+      {/* The header floats over the 3D hero, so the page content starts underneath it. */}
+      <main id="main" className="-mt-[73px] flex flex-col gap-2">
+        <PlanHero t={t} />
 
-          <div {...settle(1)} className="tile settle col-span-2 aspect-[4/5] !p-0 sm:aspect-[4/3] md:col-span-6 lg:col-span-7 lg:aspect-auto lg:min-h-[600px]">
-            <Showreel t={t.reel} />
-          </div>
-
-          <div {...settle(2)} className="tile tile-night settle col-span-2 md:col-span-3 lg:col-span-6">
+        {/* Strategy + execution side by side */}
+        <section className="board" aria-label={t.services.title}>
+          <div className="tile tile-night col-span-2 md:col-span-3 lg:col-span-6">
             <h2 className="display text-[clamp(2.4rem,3.6vw,3.6rem)] text-lime">{t.hero.pair.strategy.title}</h2>
             <ul className="mt-5 grid gap-x-6 sm:grid-cols-2">
               {t.hero.pair.strategy.items.map((x) => (
@@ -63,7 +48,7 @@ export function Home({ t }: { t: Dict }) {
             </ul>
           </div>
 
-          <div {...settle(3)} className="tile tile-lime settle relative col-span-2 md:col-span-3 lg:col-span-6">
+          <div className="tile tile-lime relative col-span-2 !overflow-visible md:col-span-3 lg:col-span-6">
             <span aria-hidden="true" className="display absolute -left-[26px] top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-paper text-[2rem] leading-none text-night lg:grid">+</span>
             <h2 className="display text-[clamp(2.4rem,3.6vw,3.6rem)]">{t.hero.pair.execution.title}</h2>
             <ul className="mt-5 grid gap-x-6 sm:grid-cols-2">
@@ -194,11 +179,14 @@ export function Home({ t }: { t: Dict }) {
             <li><a href="mailto:info@faralai.com" className="no-underline hover:text-ink">info@faralai.com</a></li>
             <li>{t.footer.place}</li>
             <li><a href="https://www.instagram.com/faralai/" rel="noopener" className="no-underline hover:text-ink">Instagram</a></li>
-            <li><a href={t.nav.other.href} lang={t.nav.other.label.toLowerCase()} className="no-underline hover:text-ink">{t.nav.other.name}</a></li>
+            <li><a href={t.nav.other.href} data-lang-switch={t.nav.other.label.toLowerCase()} lang={t.nav.other.label.toLowerCase()} className="no-underline hover:text-ink">{t.nav.other.name}</a></li>
           </ul>
         </div>
         <div className="col-span-2 flex flex-col gap-1.5 px-2 py-3 text-[0.8rem] text-mute md:col-span-6 lg:col-span-12">
-          <p>{t.footer.rights}</p>
+          <div className="flex flex-wrap justify-between gap-3">
+            <p>{t.footer.rights}</p>
+            <LegalLinks t={t.legal} />
+          </div>
         </div>
       </footer>
     </div>

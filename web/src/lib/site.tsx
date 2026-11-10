@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Big_Shoulders, Schibsted_Grotesk } from "next/font/google";
-import Script from "next/script";
 import type { Dict } from "@/content/dictionary";
 
 // Shared pieces of the two root layouts (Spanish at /, English at /en/).
 
 export const SITE_URL = "https://faralai.com";
-const GA_ID = "G-5Z6D130GKW";
+
+// How Google is told the language versions relate: "/" is the page that picks the language.
+export const languageAlternates = { es: `${SITE_URL}/es/`, en: `${SITE_URL}/en/`, "x-default": `${SITE_URL}/` };
 
 export const font = Schibsted_Grotesk({
   subsets: ["latin"],
@@ -32,7 +33,7 @@ export function siteMetadata(t: Dict): Metadata {
     description: t.meta.description,
     alternates: {
       canonical: url,
-      languages: { es: `${SITE_URL}/`, en: `${SITE_URL}/en/`, "x-default": `${SITE_URL}/` },
+      languages: languageAlternates,
     },
     openGraph: {
       type: "website",
@@ -44,6 +45,11 @@ export function siteMetadata(t: Dict): Metadata {
     },
     twitter: { card: "summary_large_image" },
   };
+}
+
+// Legal pages have their own canonical address and stay out of search results.
+export function legalMetadata(title: string, path: string): Metadata {
+  return { title: `${title} | Faralai`, alternates: { canonical: `${SITE_URL}${path}` }, robots: { index: false, follow: true } };
 }
 
 export function StructuredData({ t }: { t: Dict }) {
@@ -62,15 +68,4 @@ export function StructuredData({ t }: { t: Dict }) {
     knowsLanguage: ["es", "en"],
   };
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
-}
-
-export function Analytics() {
-  return (
-    <>
-      <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
-      <Script id="ga" strategy="afterInteractive">
-        {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${GA_ID}');`}
-      </Script>
-    </>
-  );
 }
