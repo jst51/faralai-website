@@ -26,6 +26,7 @@ export const es = {
     ],
     cta: 'Auditoría gratuita',
   },
+  pages: { webDesign: { href: '/es/diseno-web-marbella/', label: 'Diseño web en Marbella' } },
   ids: { services: 'servicios', method: 'metodo', faq: 'preguntas', record: 'trayectoria', audit: 'auditoria' },
   hero: {
     title: 'Pensamos la estrategia. Y la hacemos realidad.',
@@ -219,6 +220,7 @@ export const en: Dict = {
     ],
     cta: 'Free audit',
   },
+  pages: { webDesign: { href: '/en/web-design-marbella/', label: 'Web design in Marbella' } },
   ids: { services: 'services', method: 'method', faq: 'faq', record: 'record', audit: 'audit' },
   hero: {
     title: 'We shape the strategy. Then we make it happen.',

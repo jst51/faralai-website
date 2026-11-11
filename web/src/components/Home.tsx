@@ -1,14 +1,13 @@
 import Image from "next/image";
 import type { Dict } from "@/content/dictionary";
-import { AuditForm } from "./AuditForm";
+import { AuditSection } from "./AuditSection";
 import { Behaviour } from "./Behaviour";
 import { FutureSection } from "./FutureSection";
 import { Header } from "./Header";
-import { LegalLinks } from "./legal/LegalPage";
 import { LogoCarousel } from "./LogoCarousel";
-import { Mark } from "./Mark";
 import { PlanHero } from "./plan/PlanHero";
 import { Services } from "./Services";
+import { SiteFooter } from "./SiteFooter";
 
 // Line drawings for the five "sound familiar?" tiles, in the order of t.problem.pains.
 const PAIN_ICONS = [
@@ -64,7 +63,10 @@ export function Home({ t }: { t: Dict }) {
         <section id={t.ids.services} className="board" aria-labelledby="services-title">
           <div className="tile col-span-2 flex flex-wrap items-end justify-between gap-6 md:col-span-6 lg:col-span-12">
             <h2 id="services-title" className="display h-section">{t.services.title}</h2>
-            <p className="max-w-[52ch] text-ink-2">{t.services.lead}</p>
+            <div className="flex max-w-[52ch] flex-col items-start gap-3">
+              <p className="text-ink-2">{t.services.lead}</p>
+              <a href={t.pages.webDesign.href} className="font-semibold text-ink underline decoration-violet decoration-2 underline-offset-4 hover:decoration-ink">{t.pages.webDesign.label} →</a>
+            </div>
           </div>
           <Services t={t.services} />
         </section>
@@ -129,63 +131,13 @@ export function Home({ t }: { t: Dict }) {
           />
         </section>
 
-        {/* Audit board */}
-        <section id={t.ids.audit} className="board" aria-labelledby="audit-title">
-          <div className="tile tile-night col-span-2 flex flex-col gap-6 md:col-span-6 lg:col-span-5">
-            <h2 id="audit-title" className="display h-section max-w-[12ch]">{t.audit.title}</h2>
-            <p className="max-w-[46ch] text-night-mute">{t.audit.lead}</p>
-            <ul className="flex flex-col gap-2.5">
-              {t.audit.includes.map((x) => (
-                <li key={x} className="flex items-start gap-3">
-                  <span aria-hidden="true" className="mt-[3px] grid h-5 w-5 flex-none place-items-center rounded-full bg-lime">
-                    <svg viewBox="0 0 20 20" width="20" height="20"><path d="M6 10.5l2.6 2.5L14 7.5" fill="none" stroke="#0e1a3a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                  </span>
-                  {x}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-auto pt-4 text-night-mute">
-              {t.audit.email.before}{" "}
-              <a href={`mailto:${t.audit.email.address}`} className="text-white underline-offset-4">{t.audit.email.address}</a>
-            </p>
-          </div>
-          <div className="tile col-span-2 md:col-span-6 lg:col-span-7">
-            <AuditForm t={t.audit.form} locale={t.locale} />
-          </div>
-        </section>
+        <AuditSection t={t} />
 
         {/* Closing: the network from the original faralai.com */}
         <FutureSection t={t} />
       </main>
 
-      <footer className="board mt-2">
-        <div className="tile col-span-2 flex flex-col gap-4 md:col-span-6 lg:col-span-6">
-          <a href={t.nav.home} className="flex w-fit items-center gap-2.5 text-[1.2rem] font-extrabold tracking-[-0.02em] no-underline">
-            <Mark size={32} /> Faralai
-          </a>
-          <p className="max-w-[40ch] text-ink-2">{t.footer.about}</p>
-        </div>
-        <div className="tile col-span-1 md:col-span-3 lg:col-span-3">
-          <ul className="flex flex-col gap-2 text-ink-2">
-            {t.nav.links.map((l) => <li key={l.href}><a href={l.href} className="no-underline hover:text-ink">{l.label}</a></li>)}
-            <li><a href={`#${t.ids.audit}`} className="no-underline hover:text-ink">{t.nav.cta}</a></li>
-          </ul>
-        </div>
-        <div className="tile col-span-1 md:col-span-3 lg:col-span-3">
-          <ul className="flex flex-col gap-2 text-ink-2">
-            <li><a href="mailto:info@faralai.com" className="no-underline hover:text-ink">info@faralai.com</a></li>
-            <li>{t.footer.place}</li>
-            <li><a href="https://www.instagram.com/faralai/" rel="noopener" className="no-underline hover:text-ink">Instagram</a></li>
-            <li><a href={t.nav.other.href} data-lang-switch={t.nav.other.label.toLowerCase()} lang={t.nav.other.label.toLowerCase()} className="no-underline hover:text-ink">{t.nav.other.name}</a></li>
-          </ul>
-        </div>
-        <div className="col-span-2 flex flex-col gap-1.5 px-2 py-3 text-[0.8rem] text-mute md:col-span-6 lg:col-span-12">
-          <div className="flex flex-wrap justify-between gap-3">
-            <p>{t.footer.rights}</p>
-            <LegalLinks t={t.legal} />
-          </div>
-        </div>
-      </footer>
+      <SiteFooter t={t} />
     </div>
   );
 }

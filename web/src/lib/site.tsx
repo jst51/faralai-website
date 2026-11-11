@@ -47,6 +47,19 @@ export function siteMetadata(t: Dict): Metadata {
   };
 }
 
+// Service pages: their own canonical address, and the Spanish and English versions point at each other.
+export function servicePageMetadata(c: { path: string; other: string; meta: { title: string; description: string } }, locale: "es" | "en"): Metadata {
+  const es = locale === "es" ? c.path : c.other;
+  const en = locale === "en" ? c.path : c.other;
+  const url = `${SITE_URL}${c.path}`;
+  return {
+    title: c.meta.title,
+    description: c.meta.description,
+    alternates: { canonical: url, languages: { es: `${SITE_URL}${es}`, en: `${SITE_URL}${en}`, "x-default": `${SITE_URL}${es}` } },
+    openGraph: { type: "website", url, title: c.meta.title, description: c.meta.description, images: ["/images/og.jpg"], locale: locale === "es" ? "es_ES" : "en_GB" },
+  };
+}
+
 // Legal pages have their own canonical address and stay out of search results.
 export function legalMetadata(title: string, path: string): Metadata {
   return { title: `${title} | Faralai`, alternates: { canonical: `${SITE_URL}${path}` }, robots: { index: false, follow: true } };
