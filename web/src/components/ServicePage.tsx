@@ -1,27 +1,12 @@
 import type { Dict } from "@/content/dictionary";
-import type { WebDesignCopy } from "@/content/webDesign";
+import type { ServiceCopy } from "@/content/webDesign";
+import type { ReactNode } from "react";
 import { SITE_URL } from "@/lib/site";
 import { AuditSection } from "./AuditSection";
 import { Behaviour } from "./Behaviour";
 import { Header } from "./Header";
 import { NetworkCanvas } from "./NetworkCanvas";
 import { SiteFooter } from "./SiteFooter";
-
-// Line drawings for the six website types, in the order of c.types.items.
-const TYPE_ICONS = [
-  // Corporate website: a page with a header block and columns.
-  <g key="0"><rect x="6" y="4" width="44" height="32" rx="3" /><path d="M6 11h44" /><rect x="11" y="16" width="16" height="9" rx="1.5" /><path d="M31 17h14M31 21h10M11 30h34" /></g>,
-  // Landing page: one page, one button.
-  <g key="1"><rect x="14" y="2" width="28" height="36" rx="3" /><path d="M19 9h18M21 14h14" /><rect x="20" y="22" width="16" height="6" rx="3" /></g>,
-  // Online shop: a bag.
-  <g key="2"><path d="M12 14h32l-3 22H15z" /><path d="M21 14v-3a7 7 0 0 1 14 0v3" /></g>,
-  // Multilingual: two speech bubbles.
-  <g key="3"><path d="M6 6h26v16H16l-6 5v-5H6z" /><path d="M36 14h14v15h-4v5l-6-5H24v-3" /></g>,
-  // Redesign: circular arrows around a frame.
-  <g key="4"><rect x="19" y="13" width="18" height="14" rx="2" /><path d="M10 20a18 18 0 0 1 31-12l3 3M46 20a18 18 0 0 1-31 12l-3-3" /><path d="M44 5v6h-6M12 35v-6h6" /></g>,
-  // SEO: a magnifier over a map pin.
-  <g key="5"><circle cx="24" cy="18" r="13" /><path d="M33.5 27.5L46 38" /><path d="M24 25s-6-5.5-6-9.5a6 6 0 0 1 12 0c0 4-6 9.5-6 9.5z" /><circle cx="24" cy="15.5" r="1.6" /></g>,
-];
 
 function Check({ dark = false }: { dark?: boolean }) {
   return (
@@ -31,8 +16,9 @@ function Check({ dark = false }: { dark?: boolean }) {
   );
 }
 
-// The service page for web design in Marbella: same board, header and footer as the home page.
-export function WebDesignPage({ t, c }: { t: Dict; c: WebDesignCopy }) {
+// A service landing page (web design, marketing agency...): same board, header and footer as the home
+// page. Each page brings its copy, six line icons for its service tiles and a hero illustration.
+export function ServicePage({ t, c, icons, visual }: { t: Dict; c: ServiceCopy; icons: ReactNode[]; visual: ReactNode }) {
   const url = `${SITE_URL}${c.path}`;
   const schema = [
     {
@@ -103,37 +89,10 @@ export function WebDesignPage({ t, c }: { t: Dict; c: WebDesignCopy }) {
             </ul>
           </div>
 
-          {/* A browser window floating over the network: the site, live in several languages. */}
+          {/* The page's own illustration over the network */}
           <div aria-hidden="true" className="tile tile-night relative col-span-2 grid min-h-[360px] place-items-center !p-6 md:col-span-6 lg:col-span-5">
             <NetworkCanvas theme="dark" />
-            <div className="relative w-full max-w-[420px] -rotate-2 rounded-[12px] bg-paper text-ink shadow-[0_30px_60px_-20px_rgba(0,0,0,.6)]">
-              <div className="flex items-center gap-1.5 border-b border-line px-4 py-3">
-                <span className="h-2.5 w-2.5 rounded-full bg-line" />
-                <span className="h-2.5 w-2.5 rounded-full bg-line" />
-                <span className="h-2.5 w-2.5 rounded-full bg-line" />
-                <span className="ml-3 flex-1 truncate rounded-md bg-desk px-3 py-1 text-[0.72rem] text-mute">tuempresa.com</span>
-              </div>
-              <div className="flex flex-col gap-3 p-5">
-                <div className="flex gap-1.5 text-[0.7rem] font-bold">
-                  {["ES", "EN", "DE", "FR"].map((l, i) => (
-                    <span key={l} className={`rounded-md px-2 py-1 ${i === 1 ? "bg-night text-white" : "bg-desk text-mute"}`}>{l}</span>
-                  ))}
-                </div>
-                <div className="h-3 w-3/4 rounded bg-ink" />
-                <div className="h-3 w-1/2 rounded bg-ink" />
-                <div className="h-2 w-full rounded bg-line" />
-                <div className="h-2 w-5/6 rounded bg-line" />
-                <div className="mt-1 h-8 w-32 rounded-md bg-lime" />
-                <div className="mt-2 grid grid-cols-3 gap-2">
-                  <div className="h-14 rounded-md bg-desk" />
-                  <div className="h-14 rounded-md bg-violet/40" />
-                  <div className="h-14 rounded-md bg-desk" />
-                </div>
-              </div>
-            </div>
-            <div className="absolute bottom-6 right-6 rotate-3 rounded-[10px] bg-lime px-3 py-2 text-[0.8rem] font-bold text-night shadow-lg">
-              Google · Marbella
-            </div>
+            {visual}
           </div>
         </section>
 
@@ -155,7 +114,7 @@ export function WebDesignPage({ t, c }: { t: Dict; c: WebDesignCopy }) {
           {c.types.items.map((x, i) => (
             <article key={x.title} className="tile col-span-2 flex min-h-[220px] flex-col gap-4 md:col-span-3 lg:col-span-4">
               <svg viewBox="0 0 56 40" width="56" height="40" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" className="text-violet" aria-hidden="true">
-                {TYPE_ICONS[i]}
+                {icons[i]}
               </svg>
               <h3 className="h-tile mt-auto">{x.title}</h3>
               <p className="max-w-[40ch] text-ink-2">{x.text}</p>

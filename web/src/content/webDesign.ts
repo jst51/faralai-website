@@ -88,9 +88,9 @@ export const webDesignEs = {
   },
 };
 
-export type WebDesignCopy = typeof webDesignEs;
+export type ServiceCopy = typeof webDesignEs;
 
-export const webDesignEn: WebDesignCopy = {
+export const webDesignEn: ServiceCopy = {
   path: '/en/web-design-marbella/',
   other: '/es/diseno-web-marbella/',
   meta: {

@@ -65,7 +65,11 @@ export function Home({ t }: { t: Dict }) {
             <h2 id="services-title" className="display h-section">{t.services.title}</h2>
             <div className="flex max-w-[52ch] flex-col items-start gap-3">
               <p className="text-ink-2">{t.services.lead}</p>
-              <a href={t.pages.webDesign.href} className="font-semibold text-ink underline decoration-violet decoration-2 underline-offset-4 hover:decoration-ink">{t.pages.webDesign.label} →</a>
+              <div className="flex flex-wrap gap-x-6 gap-y-2">
+                {Object.values(t.pages).map((pg) => (
+                  <a key={pg.href} href={pg.href} className="font-semibold text-ink underline decoration-violet decoration-2 underline-offset-4 hover:decoration-ink">{pg.label} →</a>
+                ))}
+              </div>
             </div>
           </div>
           <Services t={t.services} />

@@ -16,7 +16,7 @@ export function SiteFooter({ t, base = "", otherHref }: { t: Dict; base?: string
       <div className="tile col-span-1 md:col-span-3 lg:col-span-3">
         <ul className="flex flex-col gap-2 text-ink-2">
           {t.nav.links.map((l) => <li key={l.href}><a href={`${base}${l.href}`} className="no-underline hover:text-ink">{l.label}</a></li>)}
-          <li><a href={t.pages.webDesign.href} className="no-underline hover:text-ink">{t.pages.webDesign.label}</a></li>
+          {Object.values(t.pages).map((pg) => <li key={pg.href}><a href={pg.href} className="no-underline hover:text-ink">{pg.label}</a></li>)}
           <li><a href={`${base}#${t.ids.audit}`} className="no-underline hover:text-ink">{t.nav.cta}</a></li>
         </ul>
       </div>
