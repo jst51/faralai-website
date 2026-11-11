@@ -187,7 +187,7 @@ export function ServicePage({ t, c, icons, visual }: { t: Dict; c: ServiceCopy; 
           </div>
         </section>
 
-        <AuditSection t={t} title={c.audit.title} lead={c.audit.lead} />
+        <AuditSection t={t} title={c.audit.title} lead={c.audit.lead} includes={c.audit.includes} />
       </main>
 
       <SiteFooter t={t} base={t.nav.home} otherHref={c.other} />

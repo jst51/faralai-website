@@ -88,7 +88,8 @@ export const webDesignEs = {
   },
 };
 
-export type ServiceCopy = typeof webDesignEs;
+// A service page may replace the audit block's checklist with its own (`audit.includes`).
+export type ServiceCopy = typeof webDesignEs & { audit: { includes?: string[] } };
 
 export const webDesignEn: ServiceCopy = {
   path: '/en/web-design-marbella/',

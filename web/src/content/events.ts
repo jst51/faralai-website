@@ -87,6 +87,7 @@ export const eventsEs: ServiceCopy = {
   audit: {
     title: 'Cuéntanos tu evento',
     lead: 'Explícanos la idea, la fecha aproximada y el público, y te respondemos con un primer enfoque. Sin compromiso.',
+    includes: ['Propuesta de concepto', 'Presupuesto por partidas', 'Calendario de producción', 'Propuesta de espacios'],
   },
 };
 
@@ -172,6 +173,7 @@ export const eventsEn: ServiceCopy = {
   audit: {
     title: 'Tell us about your event',
     lead: 'Share the idea, the rough date and the audience, and we’ll come back with a first approach. No commitment.',
+    includes: ['Concept proposal', 'Itemised budget', 'Production timeline', 'Venue options'],
   },
 };
 
