@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prime Invest Club · Faralai</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:  #060606;
+      --lime:   #C8FF00;
+      --purple: #7B68EE;
+      --white:  #F2F2EE;
+      --muted:  #4A4A4A;
+      --card:   #0E0E0E;
+      --border: #1A1A1A;
+    }
+
+    html, body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+    }
+
+    /* ── CANVAS ── */
+    #canvas-bg {
+      position: fixed; inset: 0;
+      z-index: 0; pointer-events: none;
+    }
+
+    /* ══ LOGIN ══ */
+    #login-screen {
+      position: fixed; inset: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1),
+                  transform 0.8s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    #login-screen.hidden {
+      opacity: 0; pointer-events: none;
+      transform: translateY(-24px) scale(0.98);
+    }
+
+    .login-wrap {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 400px; padding: 0 24px;
+      animation: fadeUp 0.9s cubic-bezier(0.4,0,0.2,1) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-logo {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 44px;
+    }
+
+    .login-logo img {
+      width: 44px; height: 44px;
+      border-radius: 50%; object-fit: cover;
+    }
+
+    .logo-name { font-size: 17px; color: var(--white); letter-spacing: -0.02em; }
+    .logo-tag  { font-size: 7.5px; color: var(--muted); letter-spacing: 0.22em; text-transform: uppercase; margin-top: 2px; }
+
+    .login-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 44px 40px;
+      position: relative; overflow: hidden;
+    }
+
+    .login-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--lime), var(--purple));
+    }
+
+    .login-card h1 {
+      font-family: 'EB Garamond', serif;
+      font-size: 32px; font-weight: 400;
+      line-height: 1.15; margin-bottom: 8px;
+    }
+
+    .login-card h1 em { color: var(--lime); font-style: italic; }
+
+    .login-subtitle {
+      font-size: 9px; color: var(--muted);
+      letter-spacing: 0.18em; text-transform: uppercase;
+      margin-bottom: 36px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .login-subtitle::before { content: ''; display: inline-block; width: 16px; height: 1px; background: var(--muted); }
+
+    .field { margin-bottom: 18px; }
+    .field label { display: block; font-size: 8.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 9px; }
+    .field input {
+      width: 100%; background: #080808; border: 1px solid var(--border);
+      color: var(--white); font-family: 'DM Mono', monospace;
+      font-size: 13px; padding: 13px 16px; outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .field input:focus { border-color: var(--lime); box-shadow: 0 0 0 1px rgba(200,255,0,0.1); }
+    .field input::placeholder { color: #252525; }
+
+    .error-msg {
+      font-size: 9.5px; color: #ff5555; letter-spacing: 0.1em;
+      margin-bottom: 16px; min-height: 14px;
+      opacity: 0; transform: translateX(-4px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .error-msg.visible { opacity: 1; transform: translateX(0); }
+
+    .login-btn {
+      width: 100%; background: var(--lime); color: var(--black);
+      border: none; font-family: 'DM Mono', monospace;
+      font-size: 10.5px; letter-spacing: 0.22em;
+      text-transform: uppercase; padding: 15px;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .login-btn:hover { background: #d6ff1a; }
+
+    .login-note { margin-top: 28px; font-size: 8px; color: #222; letter-spacing: 0.12em; text-align: center; }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-6px); }
+      40%      { transform: translateX(6px); }
+      60%      { transform: translateX(-4px); }
+      80%      { transform: translateX(4px); }
+    }
+
+    /* ══ PORTAL ══ */
+    #portal { display: none; flex-direction: column; min-height: 100vh; position: relative; z-index: 1; }
+    #portal.visible { display: flex; }
+    #portal > * { opacity: 0; transform: translateY(12px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    #portal.animate > * { opacity: 1; transform: translateY(0); }
+    #portal.animate > *:nth-child(1) { transition-delay: 0.05s; }
+    #portal.animate > *:nth-child(2) { transition-delay: 0.15s; }
+    #portal.animate > *:nth-child(3) { transition-delay: 0.25s; }
+    #portal.animate > *:nth-child(4) { transition-delay: 0.35s; }
+
+    /* TOPBAR */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(6,6,6,0.94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px; height: 58px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .topbar-left { display: flex; align-items: center; gap: 16px; }
+
+    .topbar-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .topbar-logo img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; }
+    .topbar-logo-name { font-size: 13px; color: var(--white); letter-spacing: -0.01em; }
+
+    .topbar-divider { width: 1px; height: 18px; background: var(--border); }
+    .topbar-client { font-size: 9px; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; }
+
+    .topbar-right { display: flex; align-items: center; gap: 14px; }
+
+    .topbar-pic-logo { height: 24px; width: auto; opacity: 0.82; display: block; }
+
+    .badge { font-size: 7.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 5px 10px; }
+
+    /* Slide counter */
+    .slide-counter { font-size: 9px; color: var(--muted); letter-spacing: 0.1em; min-width: 48px; text-align: center; }
+
+    .download-btn {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--lime); color: var(--black);
+      text-decoration: none; font-family: 'DM Mono', monospace;
+      font-size: 9.5px; letter-spacing: 0.18em;
+      text-transform: uppercase; padding: 9px 18px;
+      transition: background 0.2s; white-space: nowrap;
+    }
+    .download-btn:hover { background: #d6ff1a; }
+    .download-btn svg { width: 11px; height: 11px; flex-shrink: 0; }
+
+    /* WELCOME */
+    .welcome-strip {
+      padding: 48px 40px 40px;
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .welcome-strip::before {
+      content: ''; position: absolute;
+      top: -60px; left: -60px; width: 280px; height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,255,0,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Logo lockup */
+    .client-logos {
+      display: flex; align-items: center; gap: 24px;
+      margin-bottom: 40px; padding-bottom: 36px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cl-faralai { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+    .cl-connector { display: flex; align-items: center; gap: 5px; }
+    .cl-line { display: block; width: 28px; height: 1px; background: var(--border); }
+    .cl-dot { display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--lime); animation: pulse 2.5s ease-in-out infinite; flex-shrink: 0; }
+    .cl-pic { height: 40px; width: auto; opacity: 0.9; flex-shrink: 0; }
+
+    @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.3; transform:scale(0.6); } }
+
+    .welcome-tag { display: inline-flex; align-items: center; gap: 9px; font-size: 8.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lime); margin-bottom: 16px; }
+    .welcome-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); animation: pulse 2.5s ease-in-out infinite; }
+
+    .welcome-strip h2 { font-family: 'EB Garamond', serif; font-size: clamp(28px, 3.5vw, 48px); font-weight: 400; line-height: 1.1; margin-bottom: 16px; }
+    .welcome-strip h2 em { font-style: italic; color: var(--lime); }
+    .welcome-strip p { font-size: 11px; color: var(--muted); max-width: 500px; line-height: 1.9; }
+
+    .meta-row { display: flex; gap: 36px; margin-top: 32px; flex-wrap: wrap; }
+    .meta-label { font-size: 7.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .meta-value { font-size: 13px; color: var(--white); }
+    .meta-value.hl { color: var(--lime); }
+
+    /* ── SLIDE GALLERY ── */
+    .gallery-wrap {
+      flex: 1;
+      padding: 36px 40px 48px;
+    }
+
+    .gallery-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .gallery-label {
+      font-size: 8px; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--muted);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .gallery-label::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--lime); }
+
+    .gallery-count { font-size: 9px; color: var(--muted); letter-spacing: 0.1em; }
+
+    /* Slides stacked vertically, full width */
+    .slides-list { display: flex; flex-direction: column; gap: 4px; }
+
+    .slide-item {
+      position: relative;
+      width: 100%;
+      cursor: zoom-in;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s;
+    }
+
+    .slide-item:hover { border-color: #333; }
+
+    .slide-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .slide-item:hover img { transform: scale(1.005); }
+
+    /* Slide number badge */
+    .slide-num {
+      position: absolute; top: 12px; left: 12px;
+      background: rgba(6,6,6,0.75);
+      backdrop-filter: blur(4px);
+      color: var(--muted);
+      font-size: 8px; letter-spacing: 0.15em;
+      padding: 4px 8px;
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .slide-item:hover .slide-num { opacity: 1; }
+
+    /* LIGHTBOX */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.96);
+      display: none; align-items: center; justify-content: center;
+      cursor: zoom-out;
+    }
+    #lightbox.open { display: flex; }
+
+    #lightbox img {
+      max-width: 94vw;
+      max-height: 94vh;
+      object-fit: contain;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 80px rgba(0,0,0,0.8);
+    }
+
+    .lb-close {
+      position: absolute; top: 20px; right: 24px;
+      font-size: 11px; color: var(--muted);
+      letter-spacing: 0.2em; text-transform: uppercase;
+      cursor: pointer; padding: 8px;
+      transition: color 0.2s;
+    }
+    .lb-close:hover { color: var(--white); }
+
+    .lb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(6,6,6,0.7);
+      border: 1px solid var(--border);
+      color: var(--white); font-size: 18px;
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background 0.2s, border-color 0.2s;
+      user-select: none;
+    }
+    .lb-nav:hover { background: var(--lime); color: var(--black); border-color: var(--lime); }
+    .lb-prev { left: 20px; }
+    .lb-next { right: 20px; }
+
+    .lb-counter {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      font-size: 9px; color: var(--muted); letter-spacing: 0.2em;
+    }
+
+    /* FOOTER */
+    .portal-footer {
+      padding: 20px 40px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    }
+    .portal-footer span { font-size: 8px; color: #222; letter-spacing: 0.1em; }
+    .portal-footer a { color: var(--lime); text-decoration: none; opacity: 0.6; transition: opacity 0.2s; }
+    .portal-footer a:hover { opacity: 1; }
+
+    @media (max-width: 640px) {
+      .login-card { padding: 32px 22px; }
+      .topbar { padding: 0 16px; height: 52px; }
+      .badge, .topbar-client, .topbar-divider { display: none; }
+      .welcome-strip { padding: 28px 16px 24px; }
+      .gallery-wrap { padding: 20px 16px 32px; }
+      .portal-footer { padding: 14px 16px; }
+      .meta-row { gap: 20px; }
+      .client-logos { gap: 16px; }
+      .cl-faralai { width: 44px; height: 44px; }
+      .cl-pic { height: 30px; }
+      .lb-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="canvas-bg"></canvas>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-wrap">
+    <div class="login-logo">
+      <img src="faralai_icon.jpg" alt="Faralai" />
+      <div>
+        <div class="logo-name">Faralai</div>
+        <div class="logo-tag">Converging Intelligence</div>
+      </div>
+    </div>
+    <div class="login-card">
+      <h1>Private<br><em>Client Portal.</em></h1>
+      <p class="login-subtitle">Restricted access · Authorised users only</p>
+      <div class="field">
+        <label>Username</label>
+        <input type="text" id="username" placeholder="———" autocomplete="off" spellcheck="false" />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="———" autocomplete="off" />
+      </div>
+      <div class="error-msg" id="error-msg">Incorrect credentials. Please try again.</div>
+      <button class="login-btn" onclick="handleLogin()">Access Portal &nbsp;→</button>
+    </div>
+    <div class="login-note">faralai.com · Confidential</div>
+  </div>
+</div>
+
+<!-- PORTAL -->
+<div id="portal">
+
+  <nav class="topbar">
+    <div class="topbar-left">
+      <a href="https://faralai.com" target="_blank" class="topbar-logo">
+        <img src="faralai_icon.jpg" alt="Faralai" />
+        <span class="topbar-logo-name">Faralai</span>
+      </a>
+      <div class="topbar-divider"></div>
+      <span class="topbar-client">Prime Invest Club</span>
+    </div>
+    <div class="topbar-right">
+      <img src="prime_invest_club_logo.png" alt="Prime Invest Club" class="topbar-pic-logo" />
+      <span class="badge">Confidential</span>
+      <a class="download-btn" href="PrimeInvestClub_Faralai_Proposal_WEB.pdf" download="PrimeInvestClub_Faralai_Proposal.pdf">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download PDF
+      </a>
+    </div>
+  </nav>
+
+  <div class="welcome-strip">
+    <div class="client-logos">
+      <img src="faralai_icon.jpg" alt="Faralai" class="cl-faralai" />
+      <div class="cl-connector">
+        <span class="cl-line"></span>
+        <span class="cl-dot"></span>
+        <span class="cl-line"></span>
+      </div>
+      <img src="prime_invest_club_logo.png" alt="Prime Invest Club" class="cl-pic" />
+    </div>
+    <div class="welcome-tag"><span class="dot"></span> 3-Phase Digital Transformation Proposal</div>
+    <h2>The future is being<br><em>built. Together.</em></h2>
+    <p>Prepared exclusively for Prime Invest Club — a strategic 3-phase roadmap from brand clarity and foundation through CRM integration, private portal development, and growth engine activation.</p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <div class="meta-label">Prepared by</div>
+        <div class="meta-value">Faralai</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Prepared for</div>
+        <div class="meta-value hl">Prime Invest Club</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Version</div>
+        <div class="meta-value">1.0 · Confidential</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gallery-wrap">
+    <div class="gallery-header">
+      <div class="gallery-label">Proposal — 9 Slides</div>
+      <div class="gallery-count">Click any slide to enlarge</div>
+    </div>
+    <div class="slides-list" id="slides-list">
+      <!-- injected by JS -->
+    </div>
+  </div>
+
+  <footer class="portal-footer">
+    <span>© 2026 Faralai · All rights reserved · Confidential</span>
+    <span><a href="https://faralai.com" target="_blank">faralai.com</a></span>
+  </footer>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox(event)">
+  <div class="lb-close" onclick="closeLightbox()">Close ✕</div>
+  <div class="lb-nav lb-prev" onclick="event.stopPropagation(); navLightbox(-1)">&#8592;</div>
+  <img id="lb-img" src="" alt="" />
+  <div class="lb-nav lb-next" onclick="event.stopPropagation(); navLightbox(1)">&#8594;</div>
+  <div class="lb-counter" id="lb-counter"></div>
+</div>
+
+<script>
+/* ── CANVAS NETWORK ── */
+const canvas = document.getElementById('canvas-bg');
+const ctx = canvas.getContext('2d');
+let W, H, nodes;
+const mouse = { x: -999, y: -999 };
+
+function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+
+function initNodes() {
+  nodes = Array.from({ length: 60 }, () => ({
+    x: Math.random()*W, y: Math.random()*H,
+    vx: (Math.random()-0.5)*0.3, vy: (Math.random()-0.5)*0.3,
+    r: Math.random()*1.3+0.5, lime: Math.random()>0.45
+  }));
+}
+
+function draw() {
+  ctx.clearRect(0,0,W,H);
+  nodes.forEach(n => {
+    n.x+=n.vx; n.y+=n.vy;
+    if(n.x<0||n.x>W) n.vx*=-1;
+    if(n.y<0||n.y>H) n.vy*=-1;
+  });
+  for(let i=0;i<nodes.length;i++) {
+    for(let j=i+1;j<nodes.length;j++) {
+      const a=nodes[i],b=nodes[j];
+      const dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<150) {
+        const al=(1-d/150)*0.15;
+        const mx=(a.x+b.x)/2-mouse.x,my=(a.y+b.y)/2-mouse.y;
+        const md=Math.sqrt(mx*mx+my*my);
+        const boost=md<120?(1-md/120)*0.4:0;
+        ctx.beginPath();
+        ctx.strokeStyle=(a.lime&&b.lime)?`rgba(200,255,0,${al+boost})`:`rgba(123,104,238,${al+boost})`;
+        ctx.lineWidth=0.5;
+        ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+      }
+    }
+  }
+  nodes.forEach(n => {
+    const dx=n.x-mouse.x,dy=n.y-mouse.y,md=Math.sqrt(dx*dx+dy*dy);
+    const prox=md<100?(1-md/100):0;
+    const col=n.lime?'rgba(200,255,0,':'rgba(123,104,238,';
+    ctx.beginPath();
+    ctx.fillStyle=col+(0.2+prox*0.7)+')';
+    ctx.arc(n.x,n.y,n.r+prox*2,0,Math.PI*2);
+    ctx.fill();
+  });
+  requestAnimationFrame(draw);
+}
+
+window.addEventListener('resize',()=>{resize();initNodes();});
+window.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+resize(); initNodes(); draw();
+
+/* ── SLIDES ── */
+const TOTAL = 9;
+let currentSlide = 0;
+
+function buildSlides() {
+  const list = document.getElementById('slides-list');
+  for(let i=1; i<=TOTAL; i++) {
+    const item = document.createElement('div');
+    item.className = 'slide-item';
+    item.innerHTML = `
+      <img src="slide-${i}.jpg" alt="Slide ${i}" loading="${i<=2?'eager':'lazy'}" />
+      <div class="slide-num">${String(i).padStart(2,'0')} / ${String(TOTAL).padStart(2,'0')}</div>
+    `;
+    item.addEventListener('click', () => openLightbox(i-1));
+    list.appendChild(item);
+  }
+}
+
+/* ── LIGHTBOX ── */
+function openLightbox(index) {
+  currentSlide = index;
+  document.getElementById('lb-img').src = `slide-${index+1}.jpg`;
+  document.getElementById('lb-counter').textContent = `${index+1} / ${TOTAL}`;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(e) {
+  if(e && e.target !== document.getElementById('lightbox') && !e.target.classList.contains('lb-close')) return;
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function navLightbox(dir) {
+  currentSlide = (currentSlide + dir + TOTAL) % TOTAL;
+  document.getElementById('lb-img').src = `slide-${currentSlide+1}.jpg`;
+  document.getElementById('lb-counter').textContent = `${currentSlide+1} / ${TOTAL}`;
+}
+
+document.addEventListener('keydown', e => {
+  if(document.getElementById('lightbox').classList.contains('open')) {
+    if(e.key==='ArrowRight') navLightbox(1);
+    if(e.key==='ArrowLeft')  navLightbox(-1);
+    if(e.key==='Escape')     { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow=''; }
+  } else {
+    if(e.key==='Enter') handleLogin();
+  }
+});
+
+/* ── LOGIN ── */
+function handleLogin() {
+  const u = document.getElementById('username').value.trim().toLowerCase();
+  const p = document.getElementById('password').value.trim();
+  const err = document.getElementById('error-msg');
+
+  if(u==='primeinvestclub' && p==='C0nverg3!') {
+    err.classList.remove('visible');
+    document.getElementById('login-screen').classList.add('hidden');
+    const portal = document.getElementById('portal');
+    portal.classList.add('visible');
+    buildSlides();
+    requestAnimationFrame(()=>requestAnimationFrame(()=>portal.classList.add('animate')));
+  } else {
+    err.classList.add('visible');
+    document.getElementById('password').value='';
+    document.getElementById('password').focus();
+    const card = document.querySelector('.login-card');
+    card.style.animation='none';
+    requestAnimationFrame(()=>{ card.style.animation='shake 0.4s ease'; });
+  }
+}
+</script>
+
+</body>
+</html>

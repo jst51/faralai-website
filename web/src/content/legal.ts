@@ -6,9 +6,8 @@ export const OWNER = {
   name: "[NOMBRE Y APELLIDOS O RAZÓN SOCIAL]",
   taxId: "[NIF / CIF]",
   address: "[DOMICILIO COMPLETO]",
-  registry: "[DATOS DEL REGISTRO MERCANTIL, SOLO SI ES UNA SOCIEDAD]",
   email: "info@faralai.com",
-  host: "[NOMBRE Y PAÍS DEL PROVEEDOR DE HOSTING]",
+  host: "GitHub Pages (GitHub, Inc., USA)",
   formspreeTransfer: "[CONFIRMAR CON FORMSPREE: MECANISMO DE TRANSFERENCIA]",
 };
 
@@ -31,8 +30,8 @@ export const LEGAL: Record<"es" | "en", Record<DocKey, LegalDoc>> = {
       sections: [
         {
           h: "Titular del sitio web",
-          p: ["En cumplimiento de la Ley 34/2002, de servicios de la sociedad de la información y de comercio electrónico (LSSI-CE), estos son los datos del titular de faralai.com:"],
-          list: [`Titular: ${o.name}`, "Nombre comercial: Faralai", `NIF / CIF: ${o.taxId}`, `Domicilio: ${o.address}`, `Correo electrónico: ${o.email}`, `Registro: ${o.registry}`],
+          p: ["En cumplimiento de la Ley 34/2002, de servicios de la sociedad de la información y de comercio electrónico (LSSI-CE), estos son los datos de contacto de faralai.com:"],
+          list: ["Nombre comercial: Faralai", `Correo electrónico: ${o.email}`],
         },
         { h: "Objeto", p: ["Este sitio web presenta los servicios de consultoría de negocio, marketing, comunicación y diseño de Faralai, y permite solicitar una auditoría gratuita."] },
         { h: "Condiciones de uso", p: ["Al navegar por este sitio aceptas usarlo de forma lícita y no realizar acciones que puedan dañarlo o impedir su normal funcionamiento."] },
@@ -114,8 +113,8 @@ export const LEGAL: Record<"es" | "en", Record<DocKey, LegalDoc>> = {
       sections: [
         {
           h: "Website owner",
-          p: ["In accordance with Spanish Law 34/2002 on information society services and e-commerce (LSSI-CE), these are the details of the owner of faralai.com:"],
-          list: [`Owner: ${o.name}`, "Trade name: Faralai", `Tax ID: ${o.taxId}`, `Address: ${o.address}`, `Email: ${o.email}`, `Registry: ${o.registry}`],
+          p: ["In accordance with Spanish Law 34/2002 on information society services and e-commerce (LSSI-CE), these are the contact details of faralai.com:"],
+          list: ["Trade name: Faralai", `Email: ${o.email}`],
         },
         { h: "Purpose", p: ["This website presents Faralai’s business consulting, marketing, communications and design services, and lets you request a free audit."] },
         { h: "Terms of use", p: ["By browsing this site you agree to use it lawfully and not to do anything that could damage it or disrupt its normal operation."] },

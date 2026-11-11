@@ -162,3 +162,22 @@ body {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+/* The original faralai.com cursor (CustomCursor). Hidden unless the component switches it on, which it
+   only does on large screens with a mouse. Form fields keep the normal text cursor. */
+.cursor-layer { display: none; }
+.custom-cursor .cursor-layer { display: block; }
+.custom-cursor, .custom-cursor a, .custom-cursor button, .custom-cursor summary, .custom-cursor label { cursor: none; }
+.custom-cursor input, .custom-cursor select, .custom-cursor textarea { cursor: auto; }
+.cursor-ring, .cursor-dot, .cursor-trail { position: fixed; top: 0; left: 0; pointer-events: none; border-radius: 50%; }
+.cursor-ring {
+  z-index: 9999;
+  width: 40px; height: 40px; margin: -20px 0 0 -20px;
+  border: 2px solid rgb(200 240 44 / 0.7);
+  mix-blend-mode: difference;
+  transition: width .3s, height .3s, margin .3s, background-color .3s, scale .1s;
+}
+.cursor-ring.is-hover { width: 60px; height: 60px; margin: -30px 0 0 -30px; background: rgb(200 240 44 / 0.15); border-color: var(--color-lime); }
+.cursor-ring.is-down { scale: 0.8; }
+.cursor-dot { z-index: 10000; width: 8px; height: 8px; background: var(--color-lime); box-shadow: 0 0 20px rgb(200 240 44 / .8), 0 0 40px rgb(200 240 44 / .4); }
+.cursor-trail { z-index: 9998; background: rgb(200 240 44 / 0.5); }

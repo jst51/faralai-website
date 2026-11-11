@@ -1,5 +1,6 @@
 import "../../globals.css";
 import { en } from "@/content/dictionary";
+import { CustomCursor } from "@/components/CustomCursor";
 import { CookieConsent } from "@/components/legal/CookieConsent";
 import { LanguageMemory } from "@/components/LanguageMemory";
 import { fontClasses, siteMetadata, StructuredData } from "@/lib/site";
@@ -11,6 +12,7 @@ export default function EnglishLayout({ children }: { children: React.ReactNode 
     <html lang="en" className={fontClasses}>
       <body>
         <LanguageMemory />
+        <CustomCursor />
         {children}
         <StructuredData t={en} />
         <CookieConsent t={en.legal} />

@@ -2,25 +2,28 @@ import Image from "next/image";
 import type { Dict } from "@/content/dictionary";
 import { AuditForm } from "./AuditForm";
 import { Behaviour } from "./Behaviour";
+import { FutureSection } from "./FutureSection";
 import { Header } from "./Header";
 import { LegalLinks } from "./legal/LegalPage";
 import { LogoCarousel } from "./LogoCarousel";
 import { Mark } from "./Mark";
 import { PlanHero } from "./plan/PlanHero";
-import { Playbook } from "./Playbook";
 import { Services } from "./Services";
 
 // Line drawings for the five "sound familiar?" tiles, in the order of t.problem.pains.
 const PAIN_ICONS = [
-  <g key="0"><circle cx="28" cy="20" r="3" /><circle cx="28" cy="20" r="10" strokeDasharray="2 3" /><circle cx="28" cy="20" r="18" strokeDasharray="1.5 4" opacity=".6" /></g>,
-  <g key="1"><path d="M4 36h48M10 36V22M20 36V12M30 36V26M40 36V16" /><path d="M46 8a4 4 0 1 1 4 4v3" /></g>,
-  <g key="2"><path d="M8 6h20l20 20-14 12L8 18z" /><circle cx="17" cy="14" r="3" /></g>,
-  <g key="3"><path d="M4 4h28v16H16l-6 6v-6H4z" /><path d="M24 20h28v14h-6v6l-6-6H24z" strokeDasharray="3 3" /></g>,
-  <g key="4"><path d="M4 34c8 0 7-12 15-12s6 9 13 5 2-16 11-18 9 12 9 4" strokeDasharray="3 3" /><circle cx="4" cy="34" r="2" fill="currentColor" /></g>,
+  // Marketing spend without knowing what works: a chart with a question mark.
+  <g key="0"><path d="M4 36h48M10 36V22M20 36V12M30 36V26M40 36V16" /><path d="M46 8a4 4 0 1 1 4 4v3" /></g>,
+  // An outdated website: a browser window.
+  <g key="1"><rect x="4" y="4" width="48" height="32" rx="3" /><path d="M4 11h48" /><circle cx="9" cy="7.5" r="1" /><circle cx="13" cy="7.5" r="1" /><rect x="9" y="16" width="14" height="14" rx="1.5" strokeDasharray="2 2" /><path d="M28 18h19M28 24h14" /></g>,
+  // International clients: a globe.
+  <g key="2"><circle cx="28" cy="20" r="16" /><ellipse cx="28" cy="20" rx="7" ry="16" /><path d="M12 20h32M14.5 12h27M14.5 28h27" strokeDasharray="2 2.5" /></g>,
+  // No hours left: a clock.
+  <g key="3"><circle cx="28" cy="20" r="16" /><path d="M28 9v11l8 5" /><circle cx="28" cy="20" r="1.5" fill="currentColor" /></g>,
 ];
 
-// Placement of the pain tiles on the 12-column board, alongside the title tile.
-const PAIN_SPANS = ["lg:col-span-4", "lg:col-span-3", "lg:col-span-3", "lg:col-span-4", "lg:col-span-5"];
+// Placement of the four pain tiles on the 12-column board, two rows beside the title tile.
+const PAIN_SPANS = ["lg:col-span-4", "lg:col-span-3", "lg:col-span-3", "lg:col-span-4"];
 
 // Page order: strategy + execution and the business case first; the founder's photo and story come
 // last, just before the audit form.
@@ -37,32 +40,10 @@ export function Home({ t }: { t: Dict }) {
       <main id="main" className="-mt-[73px] flex flex-col gap-2">
         <PlanHero t={t} />
 
-        {/* Strategy + execution side by side */}
-        <section className="board" aria-label={t.services.title}>
-          <div className="tile tile-night col-span-2 md:col-span-3 lg:col-span-6">
-            <h2 className="display text-[clamp(2.4rem,3.6vw,3.6rem)] text-lime">{t.hero.pair.strategy.title}</h2>
-            <ul className="mt-5 grid gap-x-6 sm:grid-cols-2">
-              {t.hero.pair.strategy.items.map((x) => (
-                <li key={x} className="border-t border-night-line py-2.5 text-[1.02rem]">{x}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="tile tile-lime relative col-span-2 !overflow-visible md:col-span-3 lg:col-span-6">
-            <span aria-hidden="true" className="display absolute -left-[26px] top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-paper text-[2rem] leading-none text-night lg:grid">+</span>
-            <h2 className="display text-[clamp(2.4rem,3.6vw,3.6rem)]">{t.hero.pair.execution.title}</h2>
-            <ul className="mt-5 grid gap-x-6 sm:grid-cols-2">
-              {t.hero.pair.execution.items.map((x) => (
-                <li key={x} className="border-t border-ink/15 py-2.5 text-[1.02rem] font-medium">{x}</li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
         {/* Problem board */}
         <section className="board" aria-labelledby="problem-title">
           <div className="tile col-span-2 flex flex-col justify-between gap-10 md:col-span-6 lg:col-span-5 lg:row-span-2">
-            <h2 id="problem-title" className="display max-w-[17ch] text-[clamp(2.2rem,3.4vw,3.5rem)]">{t.problem.title}</h2>
+            <h2 id="problem-title" className="display max-w-[12ch] text-[clamp(2.6rem,4.4vw,4.6rem)]">{t.problem.title}</h2>
             <p className="text-[1.3rem] font-semibold tracking-[-0.01em] text-violet">{t.problem.ask}</p>
           </div>
           {t.problem.pains.map((p, i) => (
@@ -73,9 +54,9 @@ export function Home({ t }: { t: Dict }) {
               <h3 className="h-tile max-w-[26ch]">{p}</h3>
             </div>
           ))}
-          <div className="tile tile-violet col-span-2 flex flex-col justify-end gap-3 md:col-span-6 lg:col-span-7">
+          <div className="tile tile-violet col-span-2 flex flex-col justify-end gap-3 md:col-span-6 lg:col-span-12">
             <p className="text-[1.05rem] opacity-75">{t.problem.stance.before}</p>
-            <p className="max-w-[34ch] text-[clamp(1.4rem,2.1vw,1.9rem)] font-bold leading-tight tracking-[-0.02em]">{t.problem.stance.after}</p>
+            <p className="max-w-[46ch] text-[clamp(1.3rem,1.8vw,1.7rem)] font-bold leading-tight tracking-[-0.02em]">{t.problem.stance.after}</p>
           </div>
         </section>
 
@@ -86,17 +67,6 @@ export function Home({ t }: { t: Dict }) {
             <p className="max-w-[52ch] text-ink-2">{t.services.lead}</p>
           </div>
           <Services t={t.services} />
-        </section>
-
-        {/* Playbook board: pick a goal and see the route from strategy to execution */}
-        <section className="board" aria-labelledby="play-title">
-          <div className="tile col-span-2 flex flex-col justify-between gap-6 md:col-span-6 lg:col-span-4">
-            <h2 id="play-title" className="display h-section max-w-[10ch]">{t.play.title}</h2>
-            <p className="max-w-[40ch] text-ink-2">{t.play.lead}</p>
-          </div>
-          <div className="tile tile-night col-span-2 min-h-[420px] md:col-span-6 lg:col-span-8">
-            <Playbook t={t.play} />
-          </div>
         </section>
 
         {/* Method board: the game plan as four steps joined by the route line */}
@@ -116,23 +86,47 @@ export function Home({ t }: { t: Dict }) {
           </div>
         </section>
 
-        {/* Founder and track record board, deliberately last before the audit */}
+        {/* Track record: the brands behind the experience, with a short note on the founder */}
         <section id={t.ids.record} className="board" aria-labelledby="founder-title">
-          <figure className="tile col-span-2 m-0 min-h-[420px] !p-0 md:col-span-3 lg:col-span-4">
-            <Image src="/images/jose-manzanedo.jpg" alt={t.founder.name} fill sizes="(min-width:1100px) 33vw, 100vw" className="object-cover object-[50%_22%]" />
-          </figure>
-          <div className="tile col-span-2 md:col-span-3 lg:col-span-8">
-            <span className="tile-label">{t.founder.label}</span>
-            <h2 id="founder-title" className="display h-section mt-3">{t.founder.name}</h2>
-            <p className="mt-2 font-medium text-mute">{t.founder.role}</p>
-            <p className="mt-6 max-w-[34ch] text-[clamp(1.3rem,1.9vw,1.7rem)] font-semibold leading-snug tracking-[-0.015em]">{t.founder.intro}</p>
-            <div className="mt-5 grid gap-4 text-ink-2 lg:grid-cols-2">
-              {t.founder.bio.map((p) => <p key={p}>{p}</p>)}
-            </div>
-          </div>
-          <div className="tile col-span-2 md:col-span-6 lg:col-span-12">
+          <div className="tile col-span-2 flex items-center md:col-span-6 lg:col-span-8">
             <LogoCarousel />
           </div>
+          <div className="tile col-span-2 flex gap-4 md:col-span-6 lg:col-span-4">
+            <Image src="/images/jose-manzanedo.jpg" alt={t.founder.name} width={72} height={72} className="h-[72px] w-[72px] flex-none rounded-full object-cover object-[50%_22%]" />
+            <div>
+              <span className="tile-label">{t.founder.label}</span>
+              <h2 id="founder-title" className="mt-1 text-[1.05rem] font-bold">{t.founder.name}, <span className="font-medium text-mute">{t.founder.role}</span></h2>
+              <p className="mt-2 text-[0.92rem] leading-snug text-ink-2">{t.founder.bio}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ: answers the questions people search for, marked up for Google as FAQPage */}
+        <section id={t.ids.faq} className="board" aria-labelledby="faq-title">
+          <div className="tile col-span-2 md:col-span-6 lg:col-span-4">
+            <h2 id="faq-title" className="display h-section max-w-[10ch]">{t.faq.title}</h2>
+          </div>
+          <div className="tile col-span-2 !py-2 md:col-span-6 lg:col-span-8">
+            {t.faq.items.map((f) => (
+              <details key={f.q} className="group border-b border-line last:border-0">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 text-[1.05rem] font-semibold [&::-webkit-details-marker]:hidden">
+                  {f.q}
+                  <span aria-hidden="true" className="grid h-8 w-8 flex-none place-items-center rounded-full bg-desk text-[1.2rem] transition-transform group-open:rotate-45">+</span>
+                </summary>
+                <p className="max-w-[62ch] pb-5 text-ink-2">{f.a}</p>
+              </details>
+            ))}
+          </div>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: t.faq.items.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+              }),
+            }}
+          />
         </section>
 
         {/* Audit board */}
@@ -159,6 +153,9 @@ export function Home({ t }: { t: Dict }) {
             <AuditForm t={t.audit.form} locale={t.locale} />
           </div>
         </section>
+
+        {/* Closing: the network from the original faralai.com */}
+        <FutureSection t={t} />
       </main>
 
       <footer className="board mt-2">

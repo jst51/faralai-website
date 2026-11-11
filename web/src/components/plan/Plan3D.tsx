@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useLayoutEffect, useMemo, useRef, type ReactNode, type RefObject } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, type ReactNode, type RefObject } from "react";
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
 import { OUTRO_START, STATIONS, stopStart } from "./timing";
@@ -48,8 +48,8 @@ const KEYS: Key[] = [
   { p: 0, pos: [0, 26, 0.01], tgt: [0, 0, 0], width: 1.5, lift: 9 },
   { p: 0.05, pos: [0, 26, 0.01], tgt: [0, 0, 0], width: 1.5, lift: 9 },
   ...SPOTS.flatMap((s, i): Key[] => {
-    // The web station looks past the tall phone in front of it, so it shoots from the side.
-    const pos = add(s, i === 5 ? [7.5, 8.2, 7.2] : [2.4, 7.4, 10.2]);
+    // The digital-marketing station looks past the stage in front of it, so it shoots from the side.
+    const pos = add(s, i === 6 ? [7.5, 8.2, 7.2] : [2.4, 7.4, 10.2]);
     const tgt = add(s, [0, 0.75, 0.55]);
     return [
       { p: stopStart(i) + 0.012, pos, tgt, width: 0.95 },
@@ -251,24 +251,30 @@ const Brand = () => (
   </group>
 );
 
-const Social = () => (
-  <group position={[0, 0.08, 0]}>
-    <Box size={[1.4, 0.2, 0.9]} at={[0, 0.1, 0.15]} color={STEEL} />
-    <group position={[0, 1.55, 0]} rotation={[1.08, 0, 0]}>
-      <Box size={[1.6, 0.14, 3]} color={VIOLET} r={0.07} />
-      <Box size={[1.4, 0.05, 2.75]} at={[0, 0.08, 0]} color={WHITE} r={0.025} />
-      <Box size={[1.18, 0.07, 1.25]} at={[0, 0.13, -0.55]} color={LIME} r={0.035} />
-      <Box size={[1.18, 0.07, 0.2]} at={[0, 0.13, 0.32]} color={STEEL} r={0.035} />
-      <Box size={[0.75, 0.07, 0.2]} at={[-0.21, 0.13, 0.65]} color={STEEL} r={0.035} />
+// Project management: a task board, three columns from "to do" to "done", with the done column ticked.
+const ProjectBoard = () => {
+  const columns = [
+    { x: -0.95, cards: [WHITE, WHITE, VIOLET] },
+    { x: 0, cards: [VIOLET, WHITE] },
+    { x: 0.95, cards: [LIME, LIME, LIME, LIME] },
+  ];
+  return (
+    <group position={[0, 0.08, 0]}>
+      <Box size={[3, 0.12, 2.6]} at={[0, 0.06, 0]} color={STEEL} r={0.06} />
+      {columns.map((c) =>
+        c.cards.map((color, i) => <Box key={`${c.x}-${i}`} size={[0.78, 0.26, 0.5]} at={[c.x, 0.27 + i * 0.3, 0.6 - i * 0.02]} color={color} r={0.07} />),
+      )}
+      <group position={[0.85, 1.75, 0.6]}>
+        <group position={[-0.15, 0.17, 0]} rotation={[0, 0, 0.75]}>
+          <Box size={[0.2, 0.5, 0.2]} color={LIME} r={0.09} />
+        </group>
+        <group position={[0.24, 0.35, 0]} rotation={[0, 0, -0.6]}>
+          <Box size={[0.2, 0.9, 0.2]} color={LIME} r={0.09} />
+        </group>
+      </group>
     </group>
-    <group position={[1.4, 1.5, 0.3]} rotation={[1.08, 0, -0.22]}>
-      <Box size={[0.72, 0.08, 0.72]} color={LIME} r={0.04} />
-    </group>
-    <group position={[-1.35, 2.1, 0.15]} rotation={[1.08, 0, 0.25]}>
-      <Box size={[0.6, 0.08, 0.6]} color={WHITE} r={0.04} />
-    </group>
-  </group>
-);
+  );
+};
 
 const Web = () => (
   <group position={[0, 0.08, 0]}>
@@ -297,18 +303,26 @@ const Graphic = () => (
   </group>
 );
 
-const Campaigns = () => (
+// Events and experiential: a stage with a backdrop, a lighting truss and two spotlights.
+const Events = () => (
   <group position={[0, 0.08, 0]}>
-    <Cyl r={1.45} h={0.3} at={[0, 0.15, 0]} color={WHITE} />
-    <Cyl r={1.05} h={0.65} at={[0, 0.325, 0]} color={VIOLET} />
-    <Cyl r={0.65} h={1.05} at={[0, 0.525, 0]} color={LIME} />
-    <Cyl r={0.26} h={1.55} at={[0, 0.775, 0]} color={WHITE} />
-    <Link from={[0, 1.5, 0]} to={[0, 2.9, 0]} color={STEEL} />
-    <Box size={[0.95, 0.5, 0.06]} at={[0.5, 2.62, 0]} color={LIME} r={0.03} />
+    <Box size={[3, 0.32, 1.9]} at={[0, 0.16, 0.25]} color={WHITE} r={0.08} />
+    <Box size={[2.6, 1.7, 0.14]} at={[0, 1.15, -0.7]} color={VIOLET} r={0.06} />
+    <Cyl r={0.42} h={0.14} at={[0, 1.25, -0.6]} color={LIME} />
+    <Cyl r={0.07} h={2.7} at={[-1.4, 1.35, 1.0]} color={STEEL} />
+    <Cyl r={0.07} h={2.7} at={[1.4, 1.35, 1.0]} color={STEEL} />
+    <Box size={[2.95, 0.14, 0.14]} at={[0, 2.68, 1.0]} color={STEEL} r={0.05} />
+    {[-0.7, 0.7].map((x) => (
+      <mesh key={x} position={[x, 2.35, 1.0]} rotation={[-0.6, 0, 0]}>
+        <coneGeometry args={[0.24, 0.5, 32]} />
+        <Matte color={LIME} />
+      </mesh>
+    ))}
+    <Box size={[0.5, 0.75, 0.4]} at={[0.75, 0.7, 0.45]} color={STEEL} r={0.08} />
   </group>
 );
 
-const PIECES = [DataAnalytics, Consulting, MarketingPlan, Brand, Social, Web, Graphic, Campaigns];
+const PIECES = [DataAnalytics, Consulting, MarketingPlan, Brand, ProjectBoard, Graphic, Web, Events];
 
 function Route({ smooth }: { smooth: RefObject<number> }) {
   const live = useRef<THREE.Mesh>(null);
@@ -376,9 +390,22 @@ function Governor({ light }: { light: RefObject<THREE.DirectionalLight | null> }
 function Scene({ progress }: { progress: RefObject<number> }) {
   const smooth = useRef(0);
   const light = useRef<THREE.DirectionalLight>(null);
-  const shadowSize = useThree((s) => (s.size.width < 768 ? 1024 : 2048));
-  useFrame((_, delta) => {
-    smooth.current = THREE.MathUtils.damp(smooth.current, progress.current, 7, delta);
+  const invalidate = useThree((s) => s.invalidate);
+
+  // The scene only redraws while the page scrolls or the pieces are still catching up.
+  useEffect(() => {
+    const redraw = () => invalidate();
+    window.addEventListener("scroll", redraw, { passive: true });
+    window.addEventListener("resize", redraw);
+    return () => {
+      window.removeEventListener("scroll", redraw);
+      window.removeEventListener("resize", redraw);
+    };
+  }, [invalidate]);
+
+  useFrame((state, delta) => {
+    smooth.current = THREE.MathUtils.damp(smooth.current, progress.current, 7, Math.min(delta, 1 / 30));
+    if (Math.abs(smooth.current - progress.current) > 0.0004) state.invalidate();
   });
 
   return (
@@ -391,7 +418,7 @@ function Scene({ progress }: { progress: RefObject<number> }) {
         position={[-9, 18, 9]}
         intensity={2.1}
         castShadow
-        shadow-mapSize={[shadowSize, shadowSize]}
+        shadow-mapSize={[2048, 2048]}
         shadow-camera-left={-15}
         shadow-camera-right={15}
         shadow-camera-top={12}
@@ -422,7 +449,15 @@ function Scene({ progress }: { progress: RefObject<number> }) {
 
 export default function Plan3D({ progress, active }: { progress: RefObject<number>; active: boolean }) {
   return (
-    <Canvas flat shadows frameloop={active ? "always" : "never"} dpr={[1, 1.75]} camera={{ fov: 28, near: 0.5, far: 260, position: [0, 26, 0.01] }} className="!absolute inset-0">
+    <Canvas
+      flat
+      shadows
+      frameloop={active ? "demand" : "never"}
+      dpr={[1, 1.75]}
+      gl={{ antialias: true, powerPreference: "high-performance" }}
+      camera={{ fov: 28, near: 0.5, far: 260, position: [0, 26, 0.01] }}
+      className="!absolute inset-0"
+    >
       <Scene progress={progress} />
     </Canvas>
   );

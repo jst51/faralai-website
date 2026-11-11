@@ -63,9 +63,22 @@ export function StructuredData({ t }: { t: Dict }) {
     email: "info@faralai.com",
     description: t.meta.description,
     address: { "@type": "PostalAddress", addressLocality: "Marbella", addressRegion: "Málaga", addressCountry: "ES" },
-    areaServed: ["Marbella", "Costa del Sol", "Spain", "Europe", "Worldwide"],
+    areaServed: [
+      { "@type": "City", name: "Marbella" },
+      { "@type": "City", name: "Málaga" },
+      { "@type": "Place", name: "Costa del Sol" },
+      { "@type": "Country", name: "Spain" },
+    ],
     founder: { "@type": "Person", name: "Jose Manzanedo" },
     knowsLanguage: ["es", "en"],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: t.services.title,
+      itemListElement: t.services.items.map((s) => ({
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: s.title, description: s.summary, areaServed: "Marbella" },
+      })),
+    },
   };
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
 }
