@@ -7,6 +7,7 @@ export const dynamic = "force-static";
 const SERVICE_PAGES = [
   ["/es/diseno-web-marbella/", "/en/web-design-marbella/"],
   ["/es/agencia-marketing-marbella/", "/en/marketing-agency-marbella/"],
+  ["/es/organizacion-eventos-marbella/", "/en/event-planner-marbella/"],
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

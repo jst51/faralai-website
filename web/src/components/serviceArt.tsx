@@ -108,3 +108,51 @@ export function marketingVisual(labels: { panel: string; leads: string; badge: s
     </>
   );
 }
+
+// Line drawings for the six event types, in the order of the events page's types.items.
+export const EVENT_ICONS: ReactNode[] = [
+  // Corporate events: a stage with a lectern and an audience.
+  <g key="0"><path d="M4 22h48" /><rect x="24" y="10" width="8" height="12" rx="1" /><path d="M22 10h12" /><circle cx="12" cy="30" r="2.5" /><circle cx="22" cy="31" r="2.5" /><circle cx="34" cy="31" r="2.5" /><circle cx="44" cy="30" r="2.5" /><path d="M8 38a4 4 0 0 1 8 0M18 39a4 4 0 0 1 8 0M30 39a4 4 0 0 1 8 0M40 38a4 4 0 0 1 8 0" /></g>,
+  // Product launch: a spotlight on a box.
+  <g key="1"><path d="M10 4l8 10M46 4l-8 10" /><path d="M14 14h28l6 22H8z" strokeDasharray="2 2.5" /><rect x="20" y="22" width="16" height="14" rx="1" /><path d="M20 27h16M28 22v14" /></g>,
+  // Brand experience: a pop-up stand with an awning.
+  <g key="2"><path d="M8 14l4-8h32l4 8z" /><path d="M8 14c0 3 4 3 4 0 0 3 4 3 4 0 0 3 4 3 4 0 0 3 4 3 4 0 0 3 4 3 4 0 0 3 4 3 4 0 0 3 4 3 4 0 0 3 4 3 4 0" /><path d="M12 17v19h32V17" /><rect x="22" y="24" width="12" height="12" /></g>,
+  // Sponsorships and partnerships: two linked rings.
+  <g key="3"><circle cx="22" cy="20" r="11" /><circle cx="34" cy="20" r="11" /></g>,
+  // VIP clients: a star in a ticket.
+  <g key="4"><path d="M4 10h48v6a4 4 0 0 0 0 8v6H4v-6a4 4 0 0 0 0-8z" /><path d="M28 13l2.2 4.6 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5-3.6-3.5 5-.7z" /></g>,
+  // Event communication: a camera with a speech bubble.
+  <g key="5"><rect x="4" y="12" width="32" height="22" rx="3" /><path d="M13 12l3-5h8l3 5" /><circle cx="20" cy="23" r="6" /><path d="M40 6h12v9h-5l-3 3v-3h-4z" /></g>,
+];
+
+// Hero illustration: an invitation over the evening's run of show.
+const TIMES = ["19:30", "20:00", "21:00", "22:30"];
+
+export function eventsVisual(l: { invite: string; title: string; place: string; schedule: string; rows: string[]; badge: string }) {
+  return (
+    <>
+      <div className="relative w-full max-w-[400px]">
+        <div className="ml-auto w-[86%] rotate-2 rounded-[12px] bg-paper p-5 pt-[136px] text-ink shadow-[0_30px_60px_-20px_rgba(0,0,0,.6)]">
+          <span className="text-[0.8rem] font-bold">{l.schedule}</span>
+          <ol className="mt-3 flex flex-col">
+            {l.rows.map((r, i) => (
+              <li key={r} className="flex items-center gap-3 border-t border-line py-2.5 text-[0.8rem] font-semibold">
+                <span className="w-11 font-display text-[1rem] font-extrabold text-violet">{TIMES[i]}</span>
+                {r}
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div className="absolute left-0 top-[-14px] w-[72%] -rotate-3 rounded-[12px] bg-lime p-5 text-night shadow-[0_20px_40px_-16px_rgba(0,0,0,.6)]">
+          <span className="text-[0.72rem] font-bold uppercase tracking-[0.08em]">{l.invite}</span>
+          <p className="mt-1 font-display text-[1.9rem] font-extrabold uppercase leading-none">{l.title}</p>
+          <p className="mt-2 text-[0.78rem] font-semibold">{l.place}</p>
+          <span aria-hidden="true" className="absolute -right-2.5 top-1/2 h-5 w-5 -translate-y-1/2 rounded-full bg-night" />
+        </div>
+      </div>
+      <div className="absolute bottom-6 left-6 hidden -rotate-3 rounded-[10px] bg-violet px-3 py-2 text-[0.8rem] font-bold text-violet-ink shadow-lg sm:block">
+        {l.badge}
+      </div>
+    </>
+  );
+}

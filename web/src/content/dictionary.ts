@@ -29,6 +29,7 @@ export const es = {
   pages: {
     webDesign: { href: '/es/diseno-web-marbella/', label: 'Diseño web en Marbella' },
     marketing: { href: '/es/agencia-marketing-marbella/', label: 'Agencia de marketing en Marbella' },
+    events: { href: '/es/organizacion-eventos-marbella/', label: 'Organización de eventos en Marbella' },
   },
   ids: { services: 'servicios', method: 'metodo', faq: 'preguntas', record: 'trayectoria', audit: 'auditoria' },
   hero: {
@@ -226,6 +227,7 @@ export const en: Dict = {
   pages: {
     webDesign: { href: '/en/web-design-marbella/', label: 'Web design in Marbella' },
     marketing: { href: '/en/marketing-agency-marbella/', label: 'Marketing agency in Marbella' },
+    events: { href: '/en/event-planner-marbella/', label: 'Event planner in Marbella' },
   },
   ids: { services: 'services', method: 'method', faq: 'faq', record: 'record', audit: 'audit' },
   hero: {
