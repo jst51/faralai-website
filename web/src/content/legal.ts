@@ -3,7 +3,7 @@
 // and the site should not go live until none are left.
 
 export const OWNER = {
-  name: "[NOMBRE Y APELLIDOS O RAZÓN SOCIAL]",
+  name: "Faralai",
   taxId: "[NIF / CIF]",
   address: "[DOMICILIO COMPLETO]",
   email: "info@faralai.com",
@@ -51,7 +51,7 @@ export const LEGAL: Record<"es" | "en", Record<DocKey, LegalDoc>> = {
       title: "Política de privacidad",
       intro: "Aquí explicamos qué datos personales tratamos en faralai.com, para qué y qué derechos tienes.",
       sections: [
-        { h: "Responsable del tratamiento", list: [`Responsable: ${o.name}`, `NIF / CIF: ${o.taxId}`, `Domicilio: ${o.address}`, `Contacto: ${o.email}`] },
+        { h: "Responsable del tratamiento", list: [`Responsable: ${o.name}`, `Contacto: ${o.email}`] },
         {
           h: "Qué datos tratamos y para qué",
           table: {
@@ -69,7 +69,7 @@ export const LEGAL: Record<"es" | "en", Record<DocKey, LegalDoc>> = {
           h: "Con quién los compartimos",
           p: ["No vendemos tus datos. Solo acceden a ellos los proveedores que necesitamos para prestar el servicio, que actúan como encargados del tratamiento:"],
           list: [
-            `Formspree, Inc. (Estados Unidos): recibe y entrega los envíos del formulario. Transferencia internacional: ${o.formspreeTransfer}.`,
+            `Formspree, Inc. (Estados Unidos): recibe y entrega los envíos del formulario.`,
             "Google Ireland Limited (Google Analytics): solo si aceptas las cookies analíticas. Los datos pueden transferirse a Google LLC en Estados Unidos, con las garantías del Marco de Privacidad de Datos UE-EE. UU.",
             `${o.host}: alojamiento del sitio web.`,
           ],
@@ -134,7 +134,7 @@ export const LEGAL: Record<"es" | "en", Record<DocKey, LegalDoc>> = {
       title: "Privacy policy",
       intro: "This page explains what personal data we process on faralai.com, why, and what your rights are. It is provided for convenience; if there is any discrepancy, the Spanish version prevails.",
       sections: [
-        { h: "Data controller", list: [`Controller: ${o.name}`, `Tax ID: ${o.taxId}`, `Address: ${o.address}`, `Contact: ${o.email}`] },
+        { h: "Data controller", list: [`Controller: ${o.name}`, `Contact: ${o.email}`] },
         {
           h: "What data we process and why",
           table: {
@@ -152,7 +152,7 @@ export const LEGAL: Record<"es" | "en", Record<DocKey, LegalDoc>> = {
           h: "Who we share it with",
           p: ["We do not sell your data. Only the providers we need to deliver the service can access it, acting as data processors:"],
           list: [
-            `Formspree, Inc. (United States): receives and delivers form submissions. International transfer: ${o.formspreeTransfer}.`,
+            `Formspree, Inc. (United States): receives and delivers form submissions.`,
             "Google Ireland Limited (Google Analytics): only if you accept analytics cookies. Data may be transferred to Google LLC in the United States, under the safeguards of the EU-US Data Privacy Framework.",
             `${o.host}: website hosting.`,
           ],

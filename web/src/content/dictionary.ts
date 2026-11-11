@@ -5,7 +5,6 @@
 // "web design marbella", "event planner marbella", "corporate events marbella". Málaga and the
 // Costa del Sol are named alongside Marbella because those searches are about ten times larger.
 
-import { OWNER } from './legal';
 
 export const es = {
   locale: 'es',
@@ -158,7 +157,7 @@ export const es = {
       needs: ['Un análisis de mi negocio', 'Una estrategia o plan de marketing', 'Una web nueva', 'Redes sociales o publicidad online', 'Diseño gráfico o branding', 'Un evento', 'Gestionar un proyecto', 'No lo tengo claro'],
       choose: 'Elige una opción',
       consent: { before: 'He leído la ', link: 'Política de privacidad', href: '/es/privacidad/', after: ' y acepto que se traten estos datos para responder a mi solicitud.' },
-      info: `Responsable: ${OWNER.name}. Finalidad: responder a tu solicitud y enviarte la auditoría. Destinatarios: Formspree, Inc., proveedor del formulario, con transferencia a EE. UU. Derechos: acceso, rectificación, supresión y otros, en info@faralai.com.`,
+      info: `Finalidad: responder a tu solicitud y enviarte la auditoría. Destinatarios: Formspree, Inc., proveedor del formulario, con transferencia a EE. UU. Derechos: acceso, rectificación, supresión y otros, en info@faralai.com.`,
       submit: 'Enviar solicitud',
       note: 'Respuesta en menos de 24 h laborables',
       sending: 'Enviando…',
@@ -351,7 +350,7 @@ export const en: Dict = {
       needs: ['An analysis of my business', 'A strategy or marketing plan', 'A new website', 'Social media or paid ads', 'Graphic design or branding', 'An event', 'Managing a project', 'Not sure yet'],
       choose: 'Choose one',
       consent: { before: 'I have read the ', link: 'Privacy policy', href: '/en/privacy/', after: ' and agree that this data may be processed to reply to my request.' },
-      info: `Controller: ${OWNER.name}. Purpose: replying to your request and sending your audit. Recipients: Formspree, Inc., our form provider, with transfer to the US. Rights: access, rectification, erasure and others, at info@faralai.com.`,
+      info: `Purpose: replying to your request and sending your audit. Recipients: Formspree, Inc., our form provider, with transfer to the US. Rights: access, rectification, erasure and others, at info@faralai.com.`,
       submit: 'Send request',
       note: 'Reply within 24 business hours',
       sending: 'Sending…',
