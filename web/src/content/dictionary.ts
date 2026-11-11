@@ -135,7 +135,7 @@ export const es = {
     label: 'Quién está detrás',
     name: 'Jose Manzanedo',
     role: 'Fundador',
-    bio: 'Veinte años en marketing y desarrollo de negocio en Europa, Estados Unidos y Latinoamérica, con agencias internacionales y proyectos para la NBA, la UEFA y la Fórmula 1. Profesor en el máster de Les Roches.',
+    bio: 'Veinte años en marketing y desarrollo de negocio en Europa, Estados Unidos y Latinoamérica, con agencias internacionales y proyectos para la NBA, la UEFA y la Fórmula 1. Fue profesor del máster de Les Roches.',
   },
   audit: {
     title: 'Descubre qué frena tu crecimiento',
@@ -328,7 +328,7 @@ export const en: Dict = {
     label: 'Who’s behind it',
     name: 'Jose Manzanedo',
     role: 'Founder',
-    bio: 'Twenty years in marketing and business development across Europe, the United States and Latin America, with international agencies and projects for the NBA, UEFA and Formula 1. Lecturer on the Les Roches master’s programme.',
+    bio: 'Twenty years in marketing and business development across Europe, the United States and Latin America, with international agencies and projects for the NBA, UEFA and Formula 1. Former lecturer on the Les Roches master’s programme.',
   },
   audit: {
     title: 'Find out what’s holding your growth back',
