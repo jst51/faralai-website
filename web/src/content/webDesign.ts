@@ -53,6 +53,7 @@ export const webDesignEs = {
       'Analítica y banner de cookies conforme al RGPD',
       'Formularios conectados a tu correo',
       'Alta en Google Search Console',
+      'Integración con herramientas de IA para optimizar recursos',
     ],
   },
   process: {
@@ -141,6 +142,7 @@ export const webDesignEn: ServiceCopy = {
       'GDPR-compliant analytics and cookie banner',
       'Forms connected to your email',
       'Google Search Console set-up',
+      'AI tool integration to make the most of your resources',
     ],
   },
   process: {

@@ -79,7 +79,6 @@ export function AuditForm({ t, locale }: { t: Dict["audit"]["form"]; locale: str
           {t.consent.after}
         </span>
       </label>
-      <p className="text-[0.78rem] leading-snug text-mute sm:col-span-2">{t.info}</p>
 
       <div className="flex flex-wrap items-center gap-x-5 gap-y-3 sm:col-span-2">
         <button type="submit" disabled={status === "sending"} className="btn btn-ink disabled:opacity-60">

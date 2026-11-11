@@ -63,11 +63,11 @@ export function Home({ t }: { t: Dict }) {
         <section id={t.ids.services} className="board" aria-labelledby="services-title">
           <div className="tile col-span-2 flex flex-wrap items-end justify-between gap-6 md:col-span-6 lg:col-span-12">
             <h2 id="services-title" className="display h-section">{t.services.title}</h2>
-            <div className="flex max-w-[52ch] flex-col items-start gap-3">
+            <div className="flex max-w-[640px] flex-col items-start gap-3">
               <p className="text-ink-2">{t.services.lead}</p>
-              <div className="flex flex-wrap gap-x-6 gap-y-2">
+              <div className="flex flex-wrap gap-2">
                 {Object.values(t.pages).map((pg) => (
-                  <a key={pg.href} href={pg.href} className="font-semibold text-ink underline decoration-violet decoration-2 underline-offset-4 hover:decoration-ink">{pg.label} →</a>
+                  <a key={pg.href} href={pg.href} className="chip no-underline transition-colors hover:border-ink hover:bg-desk">{pg.label} →</a>
                 ))}
               </div>
             </div>

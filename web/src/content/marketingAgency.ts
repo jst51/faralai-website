@@ -56,6 +56,7 @@ export const marketingEs: ServiceCopy = {
       'Contenido en español, inglés y otros idiomas',
       'Coordinación con tu web, diseño y eventos',
       'Reuniones de seguimiento periódicas',
+      'Integración con herramientas de IA para optimizar recursos',
     ],
   },
   process: {
@@ -141,6 +142,7 @@ export const marketingEn: ServiceCopy = {
       'Content in Spanish, English and other languages',
       'Coordination with your website, design and events',
       'Regular review meetings',
+      'AI tool integration to make the most of your resources',
     ],
   },
   process: {

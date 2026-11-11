@@ -117,8 +117,8 @@ export const EVENT_ICONS: ReactNode[] = [
   <g key="1"><path d="M10 4l8 10M46 4l-8 10" /><path d="M14 14h28l6 22H8z" strokeDasharray="2 2.5" /><rect x="20" y="22" width="16" height="14" rx="1" /><path d="M20 27h16M28 22v14" /></g>,
   // Brand experience: a pop-up stand with an awning.
   <g key="2"><path d="M8 14l4-8h32l4 8z" /><path d="M8 14c0 3 4 3 4 0 0 3 4 3 4 0 0 3 4 3 4 0 0 3 4 3 4 0 0 3 4 3 4 0 0 3 4 3 4 0 0 3 4 3 4 0 0 3 4 3 4 0" /><path d="M12 17v19h32V17" /><rect x="22" y="24" width="12" height="12" /></g>,
-  // Sponsorships and partnerships: two linked rings.
-  <g key="3"><circle cx="22" cy="20" r="11" /><circle cx="34" cy="20" r="11" /></g>,
+  // Sports marketing and sponsorship: a ball with motion lines.
+  <g key="3"><circle cx="32" cy="20" r="15" /><path d="M32 13l6.6 4.8-2.5 7.8h-8.2l-2.5-7.8z" /><path d="M32 5v8M38.6 17.8l7.6-2.5M36.1 25.6l4.7 6.5M27.9 25.6l-4.7 6.5M25.4 17.8l-7.6-2.5" /><path d="M4 14h8M2 20h8M4 26h8" /></g>,
   // VIP clients: a star in a ticket.
   <g key="4"><path d="M4 10h48v6a4 4 0 0 0 0 8v6H4v-6a4 4 0 0 0 0-8z" /><path d="M28 13l2.2 4.6 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5-3.6-3.5 5-.7z" /></g>,
   // Event communication: a camera with a speech bubble.
@@ -151,6 +151,59 @@ export function eventsVisual(l: { invite: string; title: string; place: string; 
         </div>
       </div>
       <div className="absolute bottom-6 left-6 hidden -rotate-3 rounded-[10px] bg-violet px-3 py-2 text-[0.8rem] font-bold text-violet-ink shadow-lg sm:block">
+        {l.badge}
+      </div>
+    </>
+  );
+}
+
+// Line drawings for the six branding services, in the order of the branding page's types.items.
+export const BRANDING_ICONS: ReactNode[] = [
+  // Brand strategy: a target with an arrow.
+  <g key="0"><circle cx="24" cy="22" r="15" /><circle cx="24" cy="22" r="9" /><circle cx="24" cy="22" r="3" /><path d="M24 22L46 6M40 6h6v6" /></g>,
+  // Naming and logo: a monogram in a circle.
+  <g key="1"><circle cx="28" cy="20" r="16" /><path d="M20 28V12l8 10 8-10v16" /></g>,
+  // Visual identity: colour swatches fanned out.
+  <g key="2"><rect x="8" y="6" width="12" height="30" rx="2" /><rect x="20" y="6" width="12" height="30" rx="2" transform="rotate(14 26 36)" /><rect x="32" y="6" width="12" height="30" rx="2" transform="rotate(28 38 36)" /><circle cx="14" cy="30" r="2" /></g>,
+  // Rebranding: an old and a new shape joined by an arrow.
+  <g key="3"><rect x="4" y="12" width="16" height="16" rx="2" strokeDasharray="2 2" /><circle cx="44" cy="20" r="9" /><path d="M23 20h10M29 16l4 4-4 4" /></g>,
+  // Graphic design: a pen nib.
+  <g key="4"><path d="M28 4l12 14-12 20-12-20z" /><path d="M28 4v16" /><circle cx="28" cy="22" r="2.5" /><path d="M20 38h16" /></g>,
+  // Signage and spaces: a shop front with a hanging sign.
+  <g key="5"><path d="M6 36h44M10 36V16h36v20" /><path d="M8 16l4-8h32l4 8" /><rect x="16" y="22" width="10" height="14" /><rect x="31" y="22" width="11" height="8" /></g>,
+];
+
+// Hero illustration: a brand board with the logo, colour palette and typography.
+const SWATCHES = [
+  { bg: "bg-night", hex: "#0E1A3A", text: "text-white" },
+  { bg: "bg-lime", hex: "#C8F02C", text: "text-night" },
+  { bg: "bg-violet", hex: "#8E83E8", text: "text-violet-ink" },
+  { bg: "bg-desk", hex: "#ECEBE7", text: "text-mute" },
+];
+
+export function brandingVisual(l: { brand: string; palette: string; type: string; badge: string }) {
+  return (
+    <>
+      <div className="relative grid w-full max-w-[420px] -rotate-2 grid-cols-2 gap-2.5 rounded-[14px] bg-paper p-3 text-ink shadow-[0_30px_60px_-20px_rgba(0,0,0,.6)]">
+        <div className="col-span-2 flex items-center gap-4 rounded-[10px] bg-night p-5 text-white">
+          <span className="grid h-14 w-14 flex-none place-items-center rounded-full bg-lime font-display text-[1.9rem] font-extrabold text-night">M</span>
+          <span className="font-display text-[1.9rem] font-extrabold uppercase leading-none">{l.brand}</span>
+        </div>
+        <div className="rounded-[10px] bg-desk p-3">
+          <span className="text-[0.68rem] font-bold text-mute">{l.palette}</span>
+          <div className="mt-2 grid grid-cols-2 gap-1.5">
+            {SWATCHES.map((s) => (
+              <span key={s.hex} className={`flex h-10 items-end rounded-md p-1 text-[0.55rem] font-bold ${s.bg} ${s.text} ${s.bg === "bg-desk" ? "ring-1 ring-line" : ""}`}>{s.hex}</span>
+            ))}
+          </div>
+        </div>
+        <div className="flex flex-col rounded-[10px] bg-desk p-3">
+          <span className="text-[0.68rem] font-bold text-mute">{l.type}</span>
+          <span className="mt-auto font-display text-[3.2rem] font-extrabold leading-none">Aa</span>
+          <span className="text-[1.3rem] font-semibold leading-tight">Aa Bb</span>
+        </div>
+      </div>
+      <div className="absolute bottom-6 right-6 hidden rotate-3 rounded-[10px] bg-lime px-3 py-2 text-[0.8rem] font-bold text-night shadow-lg sm:block">
         {l.badge}
       </div>
     </>

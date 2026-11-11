@@ -8,6 +8,7 @@ const SERVICE_PAGES = [
   ["/es/diseno-web-marbella/", "/en/web-design-marbella/"],
   ["/es/agencia-marketing-marbella/", "/en/marketing-agency-marbella/"],
   ["/es/organizacion-eventos-marbella/", "/en/event-planner-marbella/"],
+  ["/es/diseno-grafico-branding-marbella/", "/en/graphic-design-branding-marbella/"],
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
